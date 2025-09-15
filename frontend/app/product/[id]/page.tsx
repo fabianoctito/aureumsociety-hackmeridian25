@@ -43,27 +43,31 @@ export default function ProductPage() {
 
   useEffect(() => {
     const loadWatch = async () => {
+      if (!watchId) return
+      
       try {
         setLoading(true)
         setError(null)
-        const response = await getApiClient().getWatch(watchId)
-        if (response.data) {
-          setWatch(response.data)
-        } else {
-          // Fallback to mock data if API fails or returns no data
-          const fallbackWatch = mockWatches.find((w) => w.id === watchId) || mockWatches[0]
+        
+        console.log('Loading watch with ID:', watchId)
+        
+        // First try to find in mock data (for marketplace items)
+        const mockWatch = mockWatches.find((w) => w.id === watchId)
+        
+        if (mockWatch) {
+          console.log('Found mock watch:', mockWatch.brand, mockWatch.name)
           // Convert mock data to Watch type
           const convertedWatch: Watch = {
-            id: parseInt(fallbackWatch.id),
-            brand: fallbackWatch.brand,
-            model: fallbackWatch.name,
-            reference: fallbackWatch.id,
-            serial_number: `SN${fallbackWatch.id}`,
-            condition: fallbackWatch.condition as 'novo' | 'seminovo' | 'usado',
-            price: fallbackWatch.price,
-            crypto_price: fallbackWatch.cryptoPrice,
-            description: fallbackWatch.description,
-            images: fallbackWatch.images,
+            id: parseInt(mockWatch.id),
+            brand: mockWatch.brand,
+            model: mockWatch.name,
+            reference: mockWatch.id,
+            serial_number: `SN${mockWatch.id}`,
+            condition: mockWatch.condition as 'novo' | 'seminovo' | 'usado',
+            price: mockWatch.price,
+            crypto_price: mockWatch.cryptoPrice,
+            description: mockWatch.description,
+            images: mockWatch.images,
             store_id: 1,
             is_active: true,
             is_sold: false,
@@ -71,32 +75,21 @@ export default function ProductPage() {
             updated_at: new Date().toISOString()
           }
           setWatch(convertedWatch)
-          setError(response.error || "Erro ao carregar relógio")
+          setLoading(false)
+          return
+        }
+        
+        console.log('Mock watch not found, trying API...')
+        // If not found in mock data, try API
+        const response = await getApiClient().getWatch(watchId)
+        if (response.data) {
+          setWatch(response.data)
+        } else {
+          setError("Relógio não encontrado")
         }
       } catch (err) {
-        // Fallback to mock data on network error
-        const fallbackWatch = mockWatches.find((w) => w.id === watchId) || mockWatches[0]
-        // Convert mock data to Watch type
-        const convertedWatch: Watch = {
-          id: parseInt(fallbackWatch.id),
-          brand: fallbackWatch.brand,
-          model: fallbackWatch.name,
-          reference: fallbackWatch.id,
-          serial_number: `SN${fallbackWatch.id}`,
-          condition: fallbackWatch.condition as 'novo' | 'seminovo' | 'usado',
-          price: fallbackWatch.price,
-          crypto_price: fallbackWatch.cryptoPrice,
-          description: fallbackWatch.description,
-          images: fallbackWatch.images,
-          store_id: 1,
-          is_active: true,
-          is_sold: false,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        }
-        setWatch(convertedWatch)
-        setError(err instanceof Error ? err.message : "Erro ao carregar relógio")
         console.error("Error loading watch:", err)
+        setError("Erro ao carregar relógio")
       } finally {
         setLoading(false)
       }

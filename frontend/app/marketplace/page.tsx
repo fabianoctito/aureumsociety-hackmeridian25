@@ -50,27 +50,52 @@ export default function MarketplacePage() {
           price_min: filters.priceRange[0] > 0 ? filters.priceRange[0] : undefined,
           price_max: filters.priceRange[1] < 100000 ? filters.priceRange[1] : undefined,
           search: filters.search || undefined,
-          sort_by: sortBy !== "newest" ? sortBy : undefined, // Only send if not default
+          sort_by: sortBy !== "newest" ? sortBy : undefined // Only send if not default
         }
 
         const response = await getApiClient().getWatches(apiFilters)
-        if (response.data) {
-          setWatches(response.data)
+        console.log('Raw API response:', response)
+        
+        if (response.data && Array.isArray(response.data)) {
+          console.log('Processing', response.data.length, 'items from API')
+          // Filter out any error objects that might be in the response
+          const validWatches = response.data.filter((watch: any, index: number) => {
+            const isValid = watch && 
+              typeof watch === 'object' && 
+              !(watch.type && watch.loc && watch.msg) && // Not an error object
+              (watch.id || watch.brand || watch.model || watch.name)
+            
+            if (!isValid) {
+              console.error(`Invalid watch at index ${index}:`, watch)
+            }
+            return isValid
+          })
+          console.log('Valid watches after filtering:', validWatches.length)
+          setWatches(validWatches)
         } else {
+          console.log('No valid data from API, using mock data')
           // Fallback to mock data if API fails or returns no data
           const { mockWatches } = await import('@/lib/watches-data')
           setWatches(mockWatches as any)
-          setError(response.error || 'Erro ao carregar relógios')
+          if (response.error) {
+            console.error('API Error:', response.error)
+            // Ensure error is a string
+            const errorMessage = typeof response.error === 'string' 
+              ? response.error 
+              : 'Erro na API: ' + String(response.error || 'Erro desconhecido')
+            setError(errorMessage)
+          }
         }
       } catch (err) {
+        console.error('Exception loading watches:', err)
         // Fallback to mock data on network error
         try {
           const { mockWatches } = await import('@/lib/watches-data')
           setWatches(mockWatches as any)
           setError(null)
-        } catch {
+        } catch (mockError) {
+          console.error('Error loading mock data:', mockError)
           setError('Erro ao carregar relógios')
-          console.error('Error loading watches:', err)
         }
       } finally {
         setLoading(false)
@@ -88,20 +113,40 @@ export default function MarketplacePage() {
 
   // Format watch data for WatchCard component
   const formatWatchData = (watch: any) => {
-    return {
-      id: watch.id?.toString() || watch.id,
-      name: watch.name || `${watch.brand} ${watch.model || ''}`,
-      brand: watch.brand,
-      price: watch.price,
-      cryptoPrice: watch.crypto_price || watch.cryptoPrice || '',
-      image: (watch.images && watch.images[0]) || watch.image || '/placeholder.svg',
-      isNew: watch.condition === 'novo' || watch.isNew || false,
-      isLimited: watch.isLimited || false,
-      category: watch.category || watch.condition || '',
-      condition: watch.condition,
-      isAuthenticated: true, // Assuming all watches are authenticated
-      seller: watch.store_name || 'Loja Premium',
-      sellerType: 'store' as const
+    // Check if watch is an error object or invalid
+    if (!watch || typeof watch !== 'object' || (watch.type && watch.loc && watch.msg)) {
+      console.error("Invalid watch object received in formatWatchData:", watch);
+      return null;
+    }
+    
+    // Ensure we have at least an ID
+    if (!watch.id && !watch.brand && !watch.model && !watch.name) {
+      console.error("Watch missing required fields in formatWatchData:", watch);
+      return null;
+    }
+    
+    try {
+      const result = {
+        id: watch.id?.toString() || String(watch.id) || Math.random().toString(),
+        name: watch.name || `${watch.brand || ''} ${watch.model || ''}`.trim() || 'Relógio',
+        brand: watch.brand || 'Marca não informada',
+        price: typeof watch.price === 'number' ? watch.price : 
+               typeof watch.current_value_brl === 'number' ? watch.current_value_brl : 0,
+        cryptoPrice: watch.crypto_price || watch.cryptoPrice || '0.001 BTC',
+        image: (watch.images && watch.images[0]) || watch.image_url || watch.image || '/placeholder.svg',
+        isNew: watch.condition === 'novo' || watch.isNew || false,
+        isLimited: watch.isLimited || false,
+        category: watch.category || watch.condition || 'Relógio',
+        condition: watch.condition || 'usado',
+        isAuthenticated: true,
+        seller: watch.store_name || 'Loja Premium',
+        sellerType: 'store' as const
+      }
+      console.log('Formatted watch data:', result.id, result.name)
+      return result
+    } catch (formatError) {
+      console.error('Error formatting watch data:', formatError, watch)
+      return null
     }
   }
 
@@ -255,15 +300,23 @@ export default function MarketplacePage() {
                       : "grid-cols-1"
                   }`}
                 >
-                  {filteredAndSortedWatches.map((watch) => {
-                    const watchData = formatWatchData(watch)
-                    return (
-                      <WatchCard
-                        key={watch.id}
-                        {...watchData}
-                      />
+                  {filteredAndSortedWatches
+                    .filter((watch: any) => 
+                      watch && 
+                      typeof watch === 'object' && 
+                      !(watch.type && watch.loc && watch.msg)
                     )
-                  })}
+                    .map((watch: any) => {
+                      const watchData = formatWatchData(watch)
+                      if (!watchData) return null;
+                      return (
+                        <WatchCard
+                          key={watchData.id}
+                          {...watchData}
+                        />
+                      )
+                    })
+                    .filter(Boolean)} {/* Remove null values */}
                 </div>
               )}
             </div>

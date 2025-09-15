@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useTheme } from "next-themes"
 import { useAuth } from "@/contexts/auth-context-api"
 import { useFavorites } from "@/contexts/favorites-context"
+import { NotificationsDropdown } from "@/components/layout/notifications-dropdown"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -14,7 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Crown, Search, ShoppingBag, User, Menu, Heart, Moon, Sun, Store, Wallet } from "lucide-react"
+import { Crown, Search, ShoppingBag, User, Menu, Heart, Moon, Sun, Store, Wallet, Bell } from "lucide-react"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -47,31 +48,27 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/marketplace" className="relative group text-sm font-medium text-foreground hover:text-primary transition-colors duration-200">
+            {/* <Link href="/marketplace" className="relative group text-sm font-medium text-foreground hover:text-primary transition-colors duration-200">
               Marketplace
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-gold-600 group-hover:w-full transition-all duration-300"></span>
-            </Link>
-            <Link href="/collections" className="relative group text-sm font-medium text-foreground hover:text-primary transition-colors duration-200">
+            </Link> */}
+            {/* <Link href="/collections" className="relative group text-sm font-medium text-foreground hover:text-primary transition-colors duration-200">
               Coleções
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-gold-600 group-hover:w-full transition-all duration-300"></span>
             </Link>
             <Link href="/brands" className="relative group text-sm font-medium text-foreground hover:text-primary transition-colors duration-200">
               Marcas
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-gold-600 group-hover:w-full transition-all duration-300"></span>
-            </Link>
-            <Link href="/about" className="relative group text-sm font-medium text-foreground hover:text-primary transition-colors duration-200">
-              Sobre
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-gold-600 group-hover:w-full transition-all duration-300"></span>
-            </Link>
+            </Link> */}
           </nav>
 
           {/* Search Bar */}
-          <div className="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-8">
+          {/* <div className="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-8">
             <div className="relative w-full group">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-gold-500" />
               <Input placeholder="Buscar relógios de luxo..." className="pl-10 pr-4 bg-muted/50 border-border focus:ring-2 focus:ring-gold-500 focus:border-gold-500 placeholder:text-muted-foreground focus:bg-background/90 transition-all duration-200" />
             </div>
-          </div>
+          </div> */}
 
           {/* Actions */}
           <div className="flex items-center space-x-3">
@@ -91,6 +88,11 @@ export function Header() {
                 )}
               </Button>
             </Link>
+
+            {/* Notificações - só aparece para usuários logados */}
+            {user && (
+              <NotificationsDropdown className="hidden md:flex" />
+            )}
 
             <Link href="/checkout">
               <Button variant="ghost" size="icon" className="relative hover:bg-gold-100 hover:text-gold-700">
@@ -121,6 +123,12 @@ export function Header() {
                       <Link href="/balance" className="w-full flex items-center gap-3">
                         <Wallet className="h-4 w-4 text-primary" />
                         <span>Meu Saldo</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="hover:bg-muted">
+                      <Link href="/notifications" className="w-full flex items-center gap-3">
+                        <Bell className="h-4 w-4 text-primary" />
+                        <span>Notificações</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="hover:bg-muted">
@@ -171,11 +179,19 @@ export function Header() {
                 {theme === "light" ? "Modo Escuro" : "Modo Claro"}
               </Button>
               
+              {/* Notificações no menu mobile - só para usuários logados */}
+              {user && (
+                <Link href="/notifications" className="flex items-center py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
+                  <Bell className="h-4 w-4 mr-2" />
+                  Notificações
+                </Link>
+              )}
+              
               <div className="space-y-2">
                 <Link href="/marketplace" className="flex items-center py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
                   Marketplace
                 </Link>
-                <Link href="/collections" className="flex items-center py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
+                {/* <Link href="/collections" className="flex items-center py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
                   Coleções
                 </Link>
                 <Link href="/brands" className="flex items-center py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
@@ -183,7 +199,7 @@ export function Header() {
                 </Link>
                 <Link href="/about" className="flex items-center py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
                   Sobre
-                </Link>
+                </Link> */}
               </div>
             </nav>
           </div>

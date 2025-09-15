@@ -147,7 +147,9 @@ class WatchOut(BaseModel):
     description: Optional[str] = None
     purchase_price_brl: Optional[float] = None
     current_value_brl: Optional[float] = None
-    current_owner_user_id: int
+    current_owner_user_id: Optional[int] = None  # Mudado para opcional
+    store_id: Optional[int] = None  # Adicionado store_id
+    price_brl: Optional[float] = None  # Adicionado price_brl
     nft_asset_code: Optional[str] = None
     stellar_issuer: Optional[str] = None
     blockchain_address: Optional[str] = None

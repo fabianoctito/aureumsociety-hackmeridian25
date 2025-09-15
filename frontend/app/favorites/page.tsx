@@ -144,18 +144,7 @@ export default function FavoritesPage() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-16 space-y-6">
-              <div className="flex justify-center">
-                <div className="p-6 rounded-full bg-muted">
-                  <Heart className="h-12 w-12 text-muted-foreground" />
-                </div>
-              </div>
-              <div className="space-y-2">    
-                <h3 className="text-xl font-semibold">Nenhum favorito ainda</h3>
-                <p className="text-muted-foreground max-w-md mx-auto">
-                  Explore nossa coleção e adicione relógios aos seus favoritos para encontrá-los facilmente depois.
-                </p>
-              </div>
+            <div className="text-center py-8 space-y-6">
               <Button asChild>
                 <a href="/marketplace">
                   <ShoppingBag className="h-4 w-4 mr-2" />

@@ -60,13 +60,6 @@ async def create_watch(
     db.refresh(db_watch)
     return db_watch
 
-@router.get("/{watch_id}", response_model=WatchOut)
-def get_watch(watch_id: int, db: Session = Depends(get_db)):
-    watch = db.query(Watch).filter(Watch.id == watch_id).first()
-    if not watch:
-        raise HTTPException(status_code=404, detail="Relógio não encontrado")
-    return watch
-
 @router.get("/marketplace", response_model=List[WatchOut])
 def list_marketplace_watches(
     db: Session = Depends(get_db),
@@ -258,6 +251,13 @@ def get_favorites(
     ).all()
     
     return favorites
+
+@router.get("/{watch_id}", response_model=WatchOut)
+def get_watch(watch_id: int, db: Session = Depends(get_db)):
+    watch = db.query(Watch).filter(Watch.id == watch_id).first()
+    if not watch:
+        raise HTTPException(status_code=404, detail="Relógio não encontrado")
+    return watch
 
 @router.get("/{watch_id}/history")
 def get_watch_history(

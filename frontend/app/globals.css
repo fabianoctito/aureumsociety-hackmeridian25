@@ -185,3 +185,206 @@ div[data-slot="card"]:hover {
   transform: none !important;
   animation: none !important;
 }
+
+/* Shipping information card enhancements */
+.shipping-info-card {
+  min-height: 600px;
+}
+
+.shipping-info-card .card-header {
+  padding-top: 2rem;
+}
+
+.shipping-info-card .card-title {
+  margin-top: 0.5rem;
+}
+
+/* Dropdown/Select background fix */
+[data-radix-popper-content-wrapper] {
+  background: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+[role="listbox"] {
+  background: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+.select-content {
+  background: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+/* More specific selectors for dropdown */
+[data-side="top"], [data-side="bottom"], [data-side="left"], [data-side="right"] {
+  background: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Select dropdown content specific */
+[cmdk-root] {
+  background: hsl(var(--background)) !important;
+}
+
+.dark [data-radix-popper-content-wrapper],
+.dark [role="listbox"],
+.dark .select-content,
+.dark [data-side="top"], 
+.dark [data-side="bottom"], 
+.dark [data-side="left"], 
+.dark [data-side="right"] {
+  background: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+/* Checkout cards spacing from edges */
+.checkout-sections {
+  padding: 1.5rem;
+}
+
+/* More specific styles for checkout cards */
+.checkout-card {
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+.checkout-card:hover {
+  transform: none !important;
+  animation: none !important;
+}
+
+/* Specific shipping information card styles */
+.checkout-card.min-h-\[600px\] {
+  min-height: 600px !important;
+}
+
+.checkout-card .card-header {
+  padding-top: 2rem !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+.checkout-card .card-content {
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  padding-bottom: 2rem !important;
+}
+
+/* Override any conflicting styles for checkout page specifically */
+[data-testid="checkout-page"] .checkout-card .card-header,
+.checkout-card .card-header.pt-8 {
+  padding-top: 2rem !important;
+}
+
+.checkout-card .card-header .card-title.mt-2,
+.checkout-card .card-title {
+  margin-top: 0.5rem !important;
+}
+
+/* Ensure CardContent spacing */
+.checkout-card .card-content.space-y-6,
+.checkout-card .space-y-6 {
+  gap: 1.5rem !important;
+}
+
+.checkout-card .card-content.pb-8 {
+  padding-bottom: 2rem !important;
+}
+
+/* HIGHEST PRIORITY STYLES FOR CHECKOUT */
+.checkout-card[style*="minHeight"] {
+  min-height: 600px !important;
+}
+
+.checkout-card .card-header[style*="paddingTop"] {
+  padding-top: 2rem !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+.checkout-card .card-title[style*="marginTop"] {
+  margin-top: 0.5rem !important;
+}
+
+.checkout-card .card-content[style*="paddingBottom"] {
+  padding-bottom: 2rem !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+/* ULTRA SPECIFIC SELECTORS FOR CHECKOUT PAGE */
+[data-testid="checkout-page"] .checkout-card[style*="minHeight"] {
+  min-height: 600px !important;
+}
+
+[data-testid="checkout-page"] .checkout-card .card-header[style*="paddingTop"] {
+  padding-top: 2rem !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+[data-testid="checkout-page"] .checkout-card .card-title[style*="marginTop"] {
+  margin-top: 0.5rem !important;
+}
+
+[data-testid="checkout-page"] .checkout-card .card-content[style*="paddingBottom"] {
+  padding-bottom: 2rem !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+/* FORCE STYLES WITH HIGHEST SPECIFICITY */
+.shipping-info-special {
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+div[data-testid="checkout-page"] div.checkout-card[style*="minHeight"] {
+  min-height: 600px !important;
+  height: auto !important;
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+div[data-testid="checkout-page"] div.checkout-card div[style*="paddingTop"] {
+  padding-top: 2rem !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+div[data-testid="checkout-page"] div.checkout-card h3[style*="marginTop"] {
+  margin-top: 0.5rem !important;
+}
+
+div[data-testid="checkout-page"] div.checkout-card div[style*="paddingBottom"] {
+  padding-bottom: 2rem !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+/* Force grid spacing */
+div[data-testid="checkout-page"] div[style*="gap"][style*="marginTop"] {
+  gap: 1.5rem !important;
+  margin-top: 1rem !important;
+}
+
+/* Force field spacing */
+div[data-testid="checkout-page"] div[style*="marginBottom"] {
+  margin-bottom: 1.5rem !important;
+}
+
+/* ULTRA PRIORITY BORDER FOR SHIPPING INFO */
+.shipping-info-special,
+.checkout-card.shipping-info-special,
+div.checkout-card.shipping-info-special {
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  outline: none !important;
+}

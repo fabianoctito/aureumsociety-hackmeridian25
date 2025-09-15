@@ -78,8 +78,13 @@ export interface WatchFilter {
   min_price?: number
   max_price?: number
   condition?: string
+  category?: string 
   year_from?: number
   year_to?: number
+  price_min?: number // For compatibility with frontend filters
+  price_max?: number // For compatibility with frontend filters
+  search?: string
+  sort_by?: string
   skip?: number
   limit?: number
 }

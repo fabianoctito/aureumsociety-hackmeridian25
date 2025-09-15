@@ -22,11 +22,11 @@ interface CheckoutSummaryProps {
 
 export function CheckoutSummary({ items, subtotal, shipping, tax, total }: CheckoutSummaryProps) {
   return (
-    <Card className="sticky top-6">
-      <CardHeader>
+    <Card className="sticky top-6 checkout-card">
+      <CardHeader className="px-6 pt-6">
         <CardTitle>Resumo do Pedido</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 px-6 pb-6">
         {/* Items */}
         <div className="space-y-3">
           {items.map((item) => (

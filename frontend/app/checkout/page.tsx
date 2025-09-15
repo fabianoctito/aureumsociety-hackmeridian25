@@ -97,7 +97,7 @@ export default function CheckoutPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-background">
+		<div className="min-h-screen bg-background" data-testid="checkout-page">
 			<div className="container mx-auto px-4 py-8">
 				<div className="mb-6">
 					<Link href="/marketplace" legacyBehavior>
@@ -111,36 +111,78 @@ export default function CheckoutPage() {
 				<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 					{/* Main Content */}
 					<div className="lg:col-span-8">
-						<div className="space-y-8">
+						<div className="space-y-8 checkout-sections">
 							<h1 className="text-3xl font-bold tracking-tight">Finalizar Compra</h1>
 
 							{/* Shipping Information */}
-							<Card className="checkout-card">
-								<CardHeader>
-									<CardTitle>Informações de Entrega</CardTitle>
+							<Card 
+								className="checkout-card shipping-info-special" 
+								style={{ 
+									minHeight: '600px',
+									border: '3px solid #94a3b8',
+									borderRadius: '8px',
+									boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+									outline: '1px solid #94a3b8'
+								}}
+							>
+								<CardHeader 
+									className="pt-8 px-6" 
+									style={{ 
+										paddingTop: '2rem',
+										paddingLeft: '1.5rem',
+										paddingRight: '1.5rem',
+										paddingBottom: '1rem'
+									}}
+								>
+									<CardTitle 
+										className="mt-2" 
+										style={{ 
+											marginTop: '0.5rem',
+											fontSize: '1.125rem',
+											fontWeight: '600'
+										}}
+									>
+										Informações de Entrega
+									</CardTitle>
 									<CardDescription>Onde devemos enviar seu relógio?</CardDescription>
 								</CardHeader>
-								<CardContent>
-									<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-										<div className="space-y-2">
+								<CardContent 
+									className="space-y-6 pb-8 px-6" 
+									style={{ 
+										paddingBottom: '2rem',
+										paddingLeft: '1.5rem',
+										paddingRight: '1.5rem',
+										paddingTop: '0.5rem'
+									}}
+								>
+									<div 
+										className="grid grid-cols-1 md:grid-cols-2 gap-6"
+										style={{ 
+											gap: '1.5rem',
+											marginTop: '1rem'
+										}}
+									>
+										<div className="space-y-3" style={{ marginBottom: '1.5rem' }}>
 											<Label htmlFor="firstName">Nome</Label>
 											<Input
 												id="firstName"
 												value={shippingInfo.firstName}
 												onChange={(e) => handleShippingChange("firstName", e.target.value)}
 												placeholder="João"
+												style={{ marginTop: '0.5rem' }}
 											/>
 										</div>
-										<div className="space-y-2">
+										<div className="space-y-3" style={{ marginBottom: '1.5rem' }}>
 											<Label htmlFor="lastName">Sobrenome</Label>
 											<Input
 												id="lastName"
 												value={shippingInfo.lastName}
 												onChange={(e) => handleShippingChange("lastName", e.target.value)}
 												placeholder="Silva"
+												style={{ marginTop: '0.5rem' }}
 											/>
 										</div>
-										<div className="md:col-span-2 space-y-2">
+										<div className="md:col-span-2 space-y-3" style={{ marginBottom: '1.5rem' }}>
 											<Label htmlFor="email">Email</Label>
 											<Input
 												id="email"
@@ -148,33 +190,36 @@ export default function CheckoutPage() {
 												value={shippingInfo.email}
 												onChange={(e) => handleShippingChange("email", e.target.value)}
 												placeholder="joao@exemplo.com"
+												style={{ marginTop: '0.5rem' }}
 											/>
 										</div>
-										<div className="md:col-span-2 space-y-2">
+										<div className="md:col-span-2 space-y-3" style={{ marginBottom: '1.5rem' }}>
 											<Label htmlFor="address">Endereço</Label>
 											<Input
 												id="address"
 												value={shippingInfo.address}
 												onChange={(e) => handleShippingChange("address", e.target.value)}
 												placeholder="Rua das Flores, 123"
+												style={{ marginTop: '0.5rem' }}
 											/>
 										</div>
-										<div className="space-y-2">
+										<div className="space-y-3" style={{ marginBottom: '1.5rem' }}>
 											<Label htmlFor="city">Cidade</Label>
 											<Input
 												id="city"
 												value={shippingInfo.city}
 												onChange={(e) => handleShippingChange("city", e.target.value)}
 												placeholder="São Paulo"
+												style={{ marginTop: '0.5rem' }}
 											/>
 										</div>
-										<div className="space-y-2">
+										<div className="space-y-3" style={{ marginBottom: '1.5rem' }}>
 											<Label htmlFor="country">País</Label>
 											<Select
 												value={shippingInfo.country}
 												onValueChange={(value) => handleShippingChange("country", value)}
 											>
-												<SelectTrigger>
+												<SelectTrigger style={{ marginTop: '0.5rem' }}>
 													<SelectValue placeholder="Selecione o país" />
 												</SelectTrigger>
 												<SelectContent>
@@ -187,13 +232,14 @@ export default function CheckoutPage() {
 												</SelectContent>
 											</Select>
 										</div>
-										<div className="space-y-2">
+										<div className="space-y-3" style={{ marginBottom: '1.5rem' }}>
 											<Label htmlFor="zipCode">CEP</Label>
 											<Input
 												id="zipCode"
 												value={shippingInfo.zipCode}
 												onChange={(e) => handleShippingChange("zipCode", e.target.value)}
 												placeholder="01234-567"
+												style={{ marginTop: '0.5rem' }}
 											/>
 										</div>
 									</div>
@@ -202,11 +248,11 @@ export default function CheckoutPage() {
 
 							{/* Payment Method */}
 							<Card className="checkout-card">
-								<CardHeader>
+								<CardHeader className="pt-6 px-6">
 									<CardTitle>Método de Pagamento</CardTitle>
 									<CardDescription>Escolha como deseja pagar</CardDescription>
 								</CardHeader>
-								<CardContent>
+								<CardContent className="px-6 pb-6">
 									<Tabs value={paymentMethod} onValueChange={(value) => setPaymentMethod(value as "crypto" | "card")}>
 										<TabsList className="grid w-full grid-cols-2">
 											<TabsTrigger value="crypto">
@@ -264,7 +310,7 @@ export default function CheckoutPage() {
 
 					{/* Sidebar - Order Summary */}
 					<div className="lg:col-span-4">
-						<div className="sticky top-24">
+						<div className="sticky top-24 checkout-sections">
 							<CheckoutSummary
 								items={mockCheckoutItems}
 								subtotal={subtotal}
@@ -272,7 +318,7 @@ export default function CheckoutPage() {
 								tax={tax}
 								total={total}
 							/>
-							<div className="mt-6">
+							<div className="mt-6 px-3">
 								<Button className="w-full" size="lg">
 									Finalizar Compra
 								</Button>
