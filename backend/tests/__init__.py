@@ -1,0 +1,1 @@
+# Testes para o MVP Marketplace de Relógios
