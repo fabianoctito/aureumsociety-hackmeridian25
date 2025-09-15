@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@custom-variant dark (&:is(.dark *));
+
+/* Critical font loading optimization */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+  src: local('Inter');
+}
+
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Reduce layout shift */
+img, video {
+  height: auto;
+  max-width: 100%;
+}
+
+:root {
+  /* Updated color tokens for luxury watch e-commerce with enhanced gold theme */
+  --background: oklch(1 0 0); /* Pure white background */
+  --foreground: oklch(0.15 0 0); /* Deep charcoal text */
+  --card: oklch(0.99 0 0); /* Near-white card background */
+  --card-foreground: oklch(0.15 0 0); /* Deep charcoal text on cards */
+  --popover: oklch(1 0 0); /* White popover background */
+  --popover-foreground: oklch(0.15 0 0); /* Deep charcoal popover text */
+  --primary: oklch(0.65 0.18 75); /* Rich gold primary */
+  --primary-foreground: oklch(1 0 0); /* White text on primary */
+  --secondary: oklch(0.75 0.15 80); /* Lighter gold accent */
+  --secondary-foreground: oklch(0.15 0 0); /* Deep charcoal text on secondary */
+  --muted: oklch(0.97 0 0); /* Very light grey muted background */
+  --muted-foreground: oklch(0.45 0 0); /* Medium grey muted text */
+  --accent: oklch(0.65 0.18 75); /* Gold accent color */
+  --accent-foreground: oklch(1 0 0); /* White text on accent */
+  --destructive: oklch(0.6 0.2 25); /* Red for destructive actions */
+  --destructive-foreground: oklch(1 0 0); /* White text on destructive */
+  --border: oklch(0.92 0 0); /* Light border color */
+  --input: oklch(0.98 0 0); /* Light input background */
+  --ring: oklch(0.65 0.18 75 / 0.3); /* Gold focus ring */
+  --chart-1: oklch(0.65 0.18 75);
+  --chart-2: oklch(0.75 0.15 80);
+  --chart-3: oklch(0.15 0 0);
+  --chart-4: oklch(1 0 0);
+  --chart-5: oklch(0.97 0 0);
+  --radius: 0.75rem; /* Softer radius for elegance */
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.15 0 0);
+  --sidebar-primary: oklch(0.65 0.18 75);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.75 0.15 80);
+  --sidebar-accent-foreground: oklch(0.15 0 0);
+  --sidebar-border: oklch(0.92 0 0);
+  --sidebar-ring: oklch(0.65 0.18 75 / 0.3);
+}
+
+.dark {
+  /* Dark mode with luxury aesthetic - deep backgrounds with gold accents */
+  --background: oklch(0.06 0 0); /* Very dark background */
+  --foreground: oklch(0.98 0 0); /* Very light text */
+  --card: oklch(0.09 0 0); /* Slightly lighter dark card background */
+  --card-foreground: oklch(0.98 0 0); /* Very light text on cards */
+  --popover: oklch(0.06 0 0); /* Very dark popover */
+  --popover-foreground: oklch(0.98 0 0); /* Very light popover text */
+  --primary: oklch(0.75 0.18 75); /* Brighter gold primary in dark mode */
+  --primary-foreground: oklch(0.06 0 0); /* Very dark text on gold */
+  --secondary: oklch(0.85 0.15 80); /* Very bright gold secondary */
+  --secondary-foreground: oklch(0.06 0 0); /* Very dark text on bright gold */
+  --muted: oklch(0.12 0 0); /* Dark muted background */
+  --muted-foreground: oklch(0.65 0 0); /* Medium-light grey muted text */
+  --accent: oklch(0.75 0.18 75); /* Bright gold accent */
+  --accent-foreground: oklch(0.06 0 0); /* Very dark text on accent */
+  --destructive: oklch(0.65 0.25 25); /* Brighter red destructive */
+  --destructive-foreground: oklch(0.98 0 0); /* Very light text on destructive */
+  --border: oklch(0.18 0 0); /* Slightly lighter dark border */
+  --input: oklch(0.12 0 0); /* Dark input background */
+  --ring: oklch(0.75 0.18 75 / 0.4); /* Gold focus ring */
+  --chart-1: oklch(0.75 0.18 75);
+  --chart-2: oklch(0.85 0.15 80);
+  --chart-3: oklch(0.98 0 0);
+  --chart-4: oklch(0.06 0 0);
+  --chart-5: oklch(0.12 0 0);
+  --sidebar: oklch(0.06 0 0);
+  --sidebar-foreground: oklch(0.98 0 0);
+  --sidebar-primary: oklch(0.75 0.18 75);
+  --sidebar-primary-foreground: oklch(0.06 0 0);
+  --sidebar-accent: oklch(0.85 0.15 80);
+  --sidebar-accent-foreground: oklch(0.06 0 0);
+  --sidebar-border: oklch(0.18 0 0);
+  --sidebar-ring: oklch(0.75 0.18 75 / 0.4);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  /* Adicionando fonte DM Serif Text para títulos */
+  --font-serif: var(--font-dm-serif);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Disable card hover effects - FORCE NO ANIMATIONS */
+div[data-slot="card"] {
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+div[data-slot="card"]:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  scale: none !important;
+  animation: none !important;
+}
+
+/* Force card stability */
+.bg-card {
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Checkout page card fixes */
+.checkout-card {
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+.checkout-card:hover {
+  transform: none !important;
+  animation: none !important;
+}
