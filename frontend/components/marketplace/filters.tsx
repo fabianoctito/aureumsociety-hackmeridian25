@@ -23,7 +23,7 @@ interface FiltersProps {
 }
 
 export function Filters({ onFiltersChange, filters }: FiltersProps) {
-  // Usamos apenas os valores passados por props, não mantemos estado interno
+  // Using only the values passed through props, no internal state
   const { priceRange, selectedBrands, selectedCategories, selectedConditions } = filters
 
   const brands = [
@@ -51,9 +51,9 @@ export function Filters({ onFiltersChange, filters }: FiltersProps) {
   ]
 
   const conditions = [
-    "novo",
-    "seminovo", 
-    "usado"
+    "new",
+    "like-new", 
+    "used"
   ]
 
   const handleBrandChange = (brand: string, checked: boolean) => {
@@ -107,12 +107,12 @@ export function Filters({ onFiltersChange, filters }: FiltersProps) {
   }
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('pt-BR', {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
-    }).format(price).replace('US$', '$')
+    }).format(price).replace('USD', '$')
   }
   
   const handleMinPriceChange = (value: string) => {
@@ -132,22 +132,22 @@ export function Filters({ onFiltersChange, filters }: FiltersProps) {
   }
 
   return (
-      <div className="w-full space-y-6 bg-card/50 rounded-lg p-6 border shadow-sm">
+    <div className="w-full space-y-6 bg-card/50 rounded-lg p-6 border shadow-sm">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold flex items-center gap-2">
           <Filter className="h-5 w-5" />
-          Filtros
+          Filters
         </h3>
         <Button variant="ghost" size="sm" onClick={clearFilters}>
           <X className="h-4 w-4 mr-1" />
-          Limpar
+          Clear
         </Button>
       </div>
 
       {/* Active Filters Summary */}
       {(selectedBrands.length > 0 || selectedCategories.length > 0 || selectedConditions.length > 0) && (
         <div className="bg-primary/5 rounded-lg p-3">
-          <div className="text-xs text-muted-foreground mb-2">Filtros ativos:</div>
+          <div className="text-xs text-muted-foreground mb-2">Active filters:</div>
           <div className="flex flex-wrap gap-1">
             {selectedBrands.map(brand => (
               <span key={brand} className="inline-flex items-center gap-1 px-2 py-1 bg-primary/10 text-primary text-xs rounded-md">
@@ -183,7 +183,7 @@ export function Filters({ onFiltersChange, filters }: FiltersProps) {
       {/* Price Range */}
       <Collapsible defaultOpen>
         <CollapsibleTrigger className="flex w-full items-center justify-between py-2 hover:bg-muted/50 rounded px-2">
-          <Label className="text-sm font-medium">Faixa de Preço</Label>
+          <Label className="text-sm font-medium">Price Range</Label>
           <ChevronDown className="h-4 w-4 transition-transform duration-200" />
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-4 pt-2">
@@ -223,7 +223,7 @@ export function Filters({ onFiltersChange, filters }: FiltersProps) {
       {/* Condition */}
       <Collapsible defaultOpen>
         <CollapsibleTrigger className="flex w-full items-center justify-between py-2 hover:bg-muted/50 rounded px-2">
-          <Label className="text-sm font-medium">Condição</Label>
+          <Label className="text-sm font-medium">Condition</Label>
           <ChevronDown className="h-4 w-4 transition-transform duration-200" />
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-3 pt-2">
@@ -245,7 +245,7 @@ export function Filters({ onFiltersChange, filters }: FiltersProps) {
       {/* Brands */}
       <Collapsible defaultOpen>
         <CollapsibleTrigger className="flex w-full items-center justify-between py-2 hover:bg-muted/50 rounded px-2">
-          <Label className="text-sm font-medium">Marcas</Label>
+          <Label className="text-sm font-medium">Brands</Label>
           <ChevronDown className="h-4 w-4 transition-transform duration-200" />
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-3 pt-2 max-h-60 overflow-y-auto">
@@ -267,7 +267,7 @@ export function Filters({ onFiltersChange, filters }: FiltersProps) {
       {/* Categories */}
       <Collapsible defaultOpen>
         <CollapsibleTrigger className="flex w-full items-center justify-between py-2 hover:bg-muted/50 rounded px-2">
-          <Label className="text-sm font-medium">Categorias</Label>
+          <Label className="text-sm font-medium">Categories</Label>
           <ChevronDown className="h-4 w-4 transition-transform duration-200" />
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-3 pt-2">

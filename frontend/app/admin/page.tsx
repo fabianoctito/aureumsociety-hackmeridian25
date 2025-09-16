@@ -22,7 +22,7 @@ export default function AdminPage() {
         <div className="flex items-center justify-center h-screen">
           <div className="text-center">
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-            <p className="mt-4 text-muted-foreground">Carregando painel administrativo...</p>
+            <p className="mt-4 text-muted-foreground">Loading administrative panel...</p>
           </div>
         </div>
       </div>
@@ -75,10 +75,10 @@ export default function AdminPage() {
               <div>
                 <h1 className="text-2xl font-bold flex items-center gap-2">
                   <Shield className="h-6 w-6 text-primary" />
-                  Painel Administrativo
+                  Administrative Panel
                 </h1>
                 <p className="text-sm text-muted-foreground">
-                  Bem-vindo, {user.full_name}
+                  Welcome, {user.full_name}
                 </p>
               </div>
               <div className="flex items-center gap-4">

@@ -51,7 +51,7 @@ export default function HomePage() {
       {/* Hero Section - Critical Above the Fold */}
       <HeroSection />
       
-      {/* Featured Products Section - Lazy Loaded */}
+      {/* Featured Products Section */}
       <Suspense fallback={
         <div className="py-20 px-4">
           <div className="container mx-auto">
@@ -59,7 +59,7 @@ export default function HomePage() {
               <div className="h-8 bg-muted rounded w-64 mx-auto mb-4"></div>
               <div className="h-4 bg-muted rounded w-96 mx-auto mb-8"></div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {[1,2,3].map(i => (
+                {[1, 2, 3].map(i => (
                   <div key={i} className="h-96 bg-muted rounded-lg"></div>
                 ))}
               </div>
@@ -73,15 +73,15 @@ export default function HomePage() {
             <div className="text-center mb-16">
               <div className="flex items-center justify-center gap-4 mb-6">
                 <Badge variant="secondary" className="text-sm px-4 py-2">
-                  Seleção Premium
+                  Premium Selection
                 </Badge>
                 <Star className="h-6 w-6 text-gold-500 fill-gold-500" />
               </div>
               <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 text-gold-600">
-                Destaques da Semana
+                Highlights of the Week
               </h2>
               <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
-                Peças selecionadas especialmente para colecionadores exigentes que buscam exclusividade e qualidade
+                Handpicked pieces for discerning collectors seeking exclusivity and quality
               </p>
             </div>
             
@@ -106,7 +106,7 @@ export default function HomePage() {
             <div className="text-center mt-12">
               <Link href="/marketplace">
                 <Button variant="secondary" size="lg" className="group">
-                  Ver Todos os Relógios
+                  View All Watches
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
@@ -115,16 +115,16 @@ export default function HomePage() {
         </section>
       </Suspense>
 
-      {/* Why Choose Us Section - Lazy Loaded */}
+      {/* Why Choose Us Section */}
       <Suspense fallback={<div className="py-20 px-4"><div className="h-64 bg-muted rounded animate-pulse"></div></div>}>
         <section className="py-20 px-4">
           <div className="container mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-primary">
-                Por que escolher a Aurum?
+                Why Choose Aurum?
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                Oferecemos uma experiência única em compra de relógios de luxo
+                We offer a unique luxury watch shopping experience
               </p>
             </div>
 
@@ -132,23 +132,23 @@ export default function HomePage() {
               {[
                 {
                   icon: Shield,
-                  title: "Autenticidade Garantida",
-                  description: "Todos os relógios passam por rigorosa verificação de autenticidade",
+                  title: "Guaranteed Authenticity",
+                  description: "Every watch undergoes strict authenticity verification",
                 },
                 {
                   icon: Truck,
-                  title: "Entrega Segura",
-                  description: "Entrega especializada com seguro completo e rastreamento",
+                  title: "Secure Delivery",
+                  description: "Specialized delivery with full insurance and tracking",
                 },
                 {
                   icon: CreditCard,
-                  title: "Pagamentos Seguros",
-                  description: "Aceite cripto e métodos tradicionais com máxima segurança",
+                  title: "Secure Payments",
+                  description: "Accepts crypto and traditional methods with top-level security",
                 },
                 {
                   icon: Award,
-                  title: "Curadoria Expert",
-                  description: "Seleção feita por especialistas em relógios de luxo",
+                  title: "Expert Curation",
+                  description: "Curated by luxury watch specialists",
                 },
               ].map((feature, index) => (
                 <Card key={index} className="border-0 bg-card/50 backdrop-blur-sm">
@@ -166,25 +166,25 @@ export default function HomePage() {
         </section>
       </Suspense>
 
-      {/* Stats Section - Lazy Loaded */}
+      {/* Stats Section */}
       <Suspense fallback={<div className="py-20 px-4"><div className="h-64 bg-muted rounded animate-pulse"></div></div>}>
         <section className="py-20 px-4 bg-gradient-to-br from-foreground to-foreground/90 text-background">
           <div className="container mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-background">
-                Números que Impressionam
+                Impressive Numbers
               </h2>
               <p className="text-background/70 text-lg max-w-2xl mx-auto">
-                Nossa excelência refletida em números
+                Our excellence reflected in numbers
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
-                { icon: Users, number: "10K+", label: "Clientes Satisfeitos" },
-                { icon: Award, number: "500+", label: "Relógios Autenticados" },
-                { icon: TrendingUp, number: "98%", label: "Taxa de Satisfação" },
-                { icon: Star, number: "4.9", label: "Avaliação Média" },
+                { icon: Users, number: "10K+", label: "Satisfied Clients" },
+                { icon: Award, number: "500+", label: "Authenticated Watches" },
+                { icon: TrendingUp, number: "98%", label: "Satisfaction Rate" },
+                { icon: Star, number: "4.9", label: "Average Rating" },
               ].map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="w-16 h-16 mx-auto mb-4 bg-background/10 rounded-full flex items-center justify-center">
@@ -199,27 +199,27 @@ export default function HomePage() {
         </section>
       </Suspense>
 
-      {/* CTA Section - Lazy Loaded */}
+      {/* CTA Section */}
       <Suspense fallback={<div className="py-20 px-4"><div className="h-64 bg-muted rounded animate-pulse"></div></div>}>
         <section className="py-20 px-4 bg-gradient-to-br from-muted/50 to-background">
           <div className="container mx-auto text-center">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 text-primary">
-                Pronto para Encontrar seu Próximo Relógio?
+                Ready to Find Your Next Timepiece?
               </h2>
               <p className="text-muted-foreground text-xl mb-8 leading-relaxed">
-                Descubra nossa coleção exclusiva de relógios de luxo e encontre a peça perfeita para sua coleção
+                Discover our exclusive luxury watch collection and find the perfect addition to your collection
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/marketplace">
                   <Button variant="secondary" size="xl" className="group">
-                    Explorar Marketplace
+                    Explore Marketplace
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
                 <Link href="/register">
                   <Button variant="outline" size="xl">
-                    Criar Conta Gratuita
+                    Create Free Account
                   </Button>
                 </Link>
               </div>

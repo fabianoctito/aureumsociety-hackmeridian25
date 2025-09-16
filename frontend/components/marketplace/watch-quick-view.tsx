@@ -32,7 +32,6 @@ export function WatchQuickView({ isOpen, onClose, watch, onAddToCart, onToggleFa
   const { isFavorite } = useFavorites()
   const [selectedImage, setSelectedImage] = useState(0)
 
-  // Mock additional images for demo
   const images = [
     watch.image,
     "/luxury-watch-side-view.png",
@@ -41,15 +40,13 @@ export function WatchQuickView({ isOpen, onClose, watch, onAddToCart, onToggleFa
   ]
 
   const specifications = [
-    { label: "Movimento", value: "Automático Suíço" },
-    { label: "Caixa", value: "Aço Inoxidável 42mm" },
-    { label: "Resistência à Água", value: "100m" },
-    { label: "Cristal", value: "Safira Anti-reflexo" },
-    { label: "Pulseira", value: "Aço Inoxidável" },
-    { label: "Garantia", value: "2 Anos Internacional" },
+    { label: "Movement", value: "Swiss Automatic" },
+    { label: "Case", value: "Stainless Steel 42mm" },
+    { label: "Water Resistance", value: "100m" },
+    { label: "Crystal", value: "Anti-reflective Sapphire" },
+    { label: "Bracelet", value: "Stainless Steel" },
+    { label: "Warranty", value: "2-Year International" },
   ]
-
-  
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -75,12 +72,12 @@ export function WatchQuickView({ isOpen, onClose, watch, onAddToCart, onToggleFa
               <div className="absolute top-4 left-4 flex flex-col gap-2">
                 {watch.isNew && (
                   <Badge variant="secondary" className="bg-primary text-primary-foreground">
-                    Novo
+                    New
                   </Badge>
                 )}
                 {watch.isLimited && (
                   <Badge variant="outline" className="bg-background/90 backdrop-blur-sm">
-                    Edição Limitada
+                    Limited Edition
                   </Badge>
                 )}
               </div>
@@ -112,7 +109,7 @@ export function WatchQuickView({ isOpen, onClose, watch, onAddToCart, onToggleFa
                     <Star key={i} className="h-4 w-4 fill-current" />
                   ))}
                 </div>
-                <span className="text-sm text-muted-foreground">(127 avaliações)</span>
+                <span className="text-sm text-muted-foreground">(127 reviews)</span>
               </div>
               <div className="space-y-1">
                 <div className="text-3xl font-bold text-foreground">${watch.price.toLocaleString()}</div>
@@ -124,11 +121,9 @@ export function WatchQuickView({ isOpen, onClose, watch, onAddToCart, onToggleFa
 
             {/* Description */}
             <div className="space-y-2">
-              <h3 className="font-semibold">Descrição</h3>
+              <h3 className="font-semibold">Description</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Este magnífico relógio representa o ápice da relojoaria de luxo, combinando tradição suíça com inovação
-                moderna. Cada detalhe foi meticulosamente crafted para oferecer precisão excepcional e elegância
-                atemporal.
+                This magnificent watch represents the pinnacle of luxury watchmaking, blending Swiss tradition with modern innovation. Every detail is meticulously crafted to deliver exceptional precision and timeless elegance.
               </p>
             </div>
 
@@ -136,7 +131,7 @@ export function WatchQuickView({ isOpen, onClose, watch, onAddToCart, onToggleFa
 
             {/* Specifications */}
             <div className="space-y-3">
-              <h3 className="font-semibold">Especificações</h3>
+              <h3 className="font-semibold">Specifications</h3>
               <div className="grid grid-cols-1 gap-2">
                 {specifications.map((spec, index) => (
                   <div key={index} className="flex justify-between text-sm">
@@ -153,19 +148,19 @@ export function WatchQuickView({ isOpen, onClose, watch, onAddToCart, onToggleFa
             <div className="grid grid-cols-2 gap-4">
               <div className="flex items-center gap-2 text-sm">
                 <Shield className="h-4 w-4 text-primary" />
-                <span>Garantia 2 Anos</span>
+                <span>2-Year Warranty</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Truck className="h-4 w-4 text-primary" />
-                <span>Frete Grátis</span>
+                <span>Free Shipping</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <RotateCcw className="h-4 w-4 text-primary" />
-                <span>Troca em 30 dias</span>
+                <span>30-Day Return</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Star className="h-4 w-4 text-primary" />
-                <span>Certificado</span>
+                <span>Certified</span>
               </div>
             </div>
 
@@ -174,26 +169,22 @@ export function WatchQuickView({ isOpen, onClose, watch, onAddToCart, onToggleFa
               <Button
                 variant="outline"
                 size="lg"
-                onClick={() => {
-                  
-                  onToggleFavorite()
-                }}
+                onClick={onToggleFavorite}
                 className="flex-1 bg-transparent"
               >
                 <Heart className={`h-4 w-4 mr-2 ${isFavorite(watch.id) ? "fill-red-500 text-red-500" : ""}`} />
-                {isFavorite(watch.id) ? "Remover dos Favoritos" : "Adicionar aos Favoritos"}
+                {isFavorite(watch.id) ? "Remove from Favorites" : "Add to Favorites"}
               </Button>
               <Button
                 size="lg"
                 onClick={() => {
-                  
                   onAddToCart()
-                  onClose() // Close modal after adding to cart
+                  onClose()
                 }}
                 className="flex-1"
               >
                 <ShoppingBag className="h-4 w-4 mr-2" />
-                Comprar Agora
+                Buy Now
               </Button>
             </div>
           </div>

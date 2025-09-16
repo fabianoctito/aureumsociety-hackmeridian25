@@ -78,9 +78,9 @@ export default function AddProductPage() {
         <div className="mb-6">
           <Button variant="ghost" onClick={() => router.back()} className="mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Voltar
+            Back
           </Button>
-          <h1 className="text-3xl font-serif font-bold text-foreground">Cadastro de Produtos</h1>
+          <h1 className="text-3xl font-serif font-bold text-foreground">Product Registration</h1>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -88,18 +88,18 @@ export default function AddProductPage() {
             {/* Seção de Imagens */}
             <Card>
               <CardHeader>
-                <CardTitle>Imagens do Produto</CardTitle>
+                <CardTitle>Product Images</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Imagem Principal */}
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">Imagem Principal</Label>
+                  <Label className="text-sm font-medium mb-2 block">Main Image</Label>
                   <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
                     {mainImage ? (
                       <div className="relative">
                         <Image
                           src={mainImage || "/placeholder.svg"}
-                          alt="Produto principal"
+                          alt="Main product"
                           width={400}
                           height={192}
                           className="object-cover rounded-lg"
@@ -117,8 +117,8 @@ export default function AddProductPage() {
                     ) : (
                       <div className="cursor-pointer" onClick={() => handleImageUpload("main")}>
                         <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                        <p className="text-muted-foreground">Clique para adicionar imagem principal</p>
-                        <p className="text-sm text-muted-foreground mt-1">PNG, JPG até 5MB</p>
+                        <p className="text-muted-foreground">Click to add main image</p>
+                        <p className="text-sm text-muted-foreground mt-1">PNG, JPG up to 5MB</p>
                       </div>
                     )}
                   </div>
@@ -126,7 +126,7 @@ export default function AddProductPage() {
 
                 {/* Miniaturas */}
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">Imagens Adicionais</Label>
+                  <Label className="text-sm font-medium mb-2 block">Additional Images</Label>
                   <div className="grid grid-cols-2 gap-4">
                     {Array.from({ length: 4 }).map((_, index) => (
                       <div key={index} className="aspect-square">
@@ -134,7 +134,7 @@ export default function AddProductPage() {
                           <div className="relative h-full">
                             <Image
                               src={thumbnails[index] || "/placeholder.svg"}
-                              alt={`Miniatura ${index + 1}`}
+                              alt={`Thumbnail ${index + 1}`}
                               width={100}
                               height={100}
                               className="w-full h-full object-cover rounded-lg"
@@ -167,12 +167,12 @@ export default function AddProductPage() {
             {/* Informações do Produto */}
             <Card>
               <CardHeader>
-                <CardTitle>Informações do Produto</CardTitle>
+                <CardTitle>Product Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="name">Nome do Produto *</Label>
+                    <Label htmlFor="name">Product Name *</Label>
                     <Input
                       id="name"
                       value={formData.name}
@@ -182,7 +182,7 @@ export default function AddProductPage() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="brand">Marca *</Label>
+                    <Label htmlFor="brand">Brand *</Label>
                     <Input
                       id="brand"
                       value={formData.brand}
@@ -194,7 +194,7 @@ export default function AddProductPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="model">Modelo</Label>
+                  <Label htmlFor="model">Model</Label>
                   <Input
                     id="model"
                     value={formData.model}
@@ -205,7 +205,7 @@ export default function AddProductPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="price">Preço de Venda (R$) *</Label>
+                    <Label htmlFor="price">Sale Price (R$) *</Label>
                     <Input
                       id="price"
                       type="number"
@@ -216,7 +216,7 @@ export default function AddProductPage() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="originalPrice">Preço Original (R$)</Label>
+                    <Label htmlFor="originalPrice">Original Price (R$)</Label>
                     <Input
                       id="originalPrice"
                       type="number"
@@ -229,37 +229,37 @@ export default function AddProductPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="category">Categoria *</Label>
+                    <Label htmlFor="category">Category *</Label>
                     <Select
                       value={formData.category}
                       onValueChange={(value) => setFormData({ ...formData, category: value })}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Selecione" />
+                        <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="esportivo">Esportivo</SelectItem>
-                        <SelectItem value="cronografo">Cronógrafo</SelectItem>
-                        <SelectItem value="luxo">Luxo</SelectItem>
-                        <SelectItem value="classico">Clássico</SelectItem>
+                        <SelectItem value="esportivo">Sports</SelectItem>
+                        <SelectItem value="cronografo">Chronograph</SelectItem>
+                        <SelectItem value="luxo">Luxury</SelectItem>
+                        <SelectItem value="classico">Classic</SelectItem>
                         <SelectItem value="dress">Dress Watch</SelectItem>
-                        <SelectItem value="outros">Outros</SelectItem>
+                        <SelectItem value="outros">Others</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="condition">Condição *</Label>
+                    <Label htmlFor="condition">Condition *</Label>
                     <Select
                       value={formData.condition}
                       onValueChange={(value) => setFormData({ ...formData, condition: value })}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Selecione" />
+                        <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="novo">Novo</SelectItem>
-                        <SelectItem value="seminovo">Semi-novo</SelectItem>
-                        <SelectItem value="usado">Usado</SelectItem>
+                        <SelectItem value="novo">New</SelectItem>
+                        <SelectItem value="seminovo">Like New</SelectItem>
+                        <SelectItem value="usado">Used</SelectItem>
                         <SelectItem value="vintage">Vintage</SelectItem>
                       </SelectContent>
                     </Select>
@@ -272,7 +272,7 @@ export default function AddProductPage() {
           {/* Especificações Técnicas */}
           <Card className="mt-8">
             <CardHeader>
-              <CardTitle>Especificações Técnicas</CardTitle>
+              <CardTitle>Technical Specifications</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -282,11 +282,11 @@ export default function AddProductPage() {
                     id="material"
                     value={formData.material}
                     onChange={(e) => setFormData({ ...formData, material: e.target.value })}
-                    placeholder="Ex: Aço Inoxidável"
+                    placeholder="Ex: Stainless Steel"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="diameter">Diâmetro (mm)</Label>
+                  <Label htmlFor="diameter">Diameter (mm)</Label>
                   <Input
                     id="diameter"
                     value={formData.diameter}
@@ -295,16 +295,16 @@ export default function AddProductPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="movement">Movimento</Label>
+                  <Label htmlFor="movement">Movement</Label>
                   <Input
                     id="movement"
                     value={formData.movement}
                     onChange={(e) => setFormData({ ...formData, movement: e.target.value })}
-                    placeholder="Ex: Automático"
+                    placeholder="Ex: Automatic"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="waterResistance">Resistência à Água</Label>
+                  <Label htmlFor="waterResistance">Water Resistance</Label>
                   <Input
                     id="waterResistance"
                     value={formData.waterResistance}
@@ -319,23 +319,23 @@ export default function AddProductPage() {
           {/* Informações Adicionais */}
           <Card className="mt-8">
             <CardHeader>
-              <CardTitle>Informações Adicionais</CardTitle>
+              <CardTitle>Additional Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="description">Descrição Detalhada</Label>
+                <Label htmlFor="description">Detailed Description</Label>
                 <Textarea
                   id="description"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Descreva as características, história e detalhes importantes do relógio..."
+                  placeholder="Describe the characteristics, history and important details of the watch..."
                   rows={4}
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <Label htmlFor="stock">Quantidade em Estoque</Label>
+                  <Label htmlFor="stock">Stock Quantity</Label>
                   <Input
                     id="stock"
                     type="number"
@@ -346,46 +346,46 @@ export default function AddProductPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="warranty">Garantia</Label>
+                  <Label htmlFor="warranty">Warranty</Label>
                   <Input
                     id="warranty"
                     value={formData.warranty}
                     onChange={(e) => setFormData({ ...formData, warranty: e.target.value })}
-                    placeholder="Ex: 2 anos"
+                    placeholder="Ex: 2 years"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="origin">Origem</Label>
+                  <Label htmlFor="origin">Origin</Label>
                   <Input
                     id="origin"
                     value={formData.origin}
                     onChange={(e) => setFormData({ ...formData, origin: e.target.value })}
-                    placeholder="Ex: Suíça"
+                    placeholder="Ex: Switzerland"
                   />
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="features">Características Especiais</Label>
+                <Label htmlFor="features">Special Features</Label>
                 <Textarea
                   id="features"
                   value={formData.features}
                   onChange={(e) => setFormData({ ...formData, features: e.target.value })}
-                  placeholder="Ex: Bezel unidirecional, luminescência Chromalight, calibre 3235..."
+                  placeholder="Ex: Unidirectional bezel, Chromalight luminescence, calibre 3235..."
                   rows={3}
                 />
               </div>
             </CardContent>
           </Card>
 
-          {/* Botões de Ação */}
+          {/* Action Buttons */}
           <div className="flex justify-end space-x-4 mt-8">
             <Button type="button" variant="outline" onClick={() => router.back()}>
-              Cancelar
+              Cancel
             </Button>
             <Button type="submit" className="bg-primary hover:bg-primary/90">
               <Save className="h-4 w-4 mr-2" />
-              Finalizar Cadastro
+              Complete Registration
             </Button>
           </div>
         </form>

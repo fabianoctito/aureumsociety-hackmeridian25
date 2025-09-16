@@ -53,11 +53,11 @@ export function Header() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-gold-600 group-hover:w-full transition-all duration-300"></span>
             </Link> */}
             {/* <Link href="/collections" className="relative group text-sm font-medium text-foreground hover:text-primary transition-colors duration-200">
-              Coleções
+              Collections
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-gold-600 group-hover:w-full transition-all duration-300"></span>
             </Link>
             <Link href="/brands" className="relative group text-sm font-medium text-foreground hover:text-primary transition-colors duration-200">
-              Marcas
+              Brands
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-400 to-gold-600 group-hover:w-full transition-all duration-300"></span>
             </Link> */}
           </nav>
@@ -66,7 +66,7 @@ export function Header() {
           {/* <div className="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-8">
             <div className="relative w-full group">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-gold-500" />
-              <Input placeholder="Buscar relógios de luxo..." className="pl-10 pr-4 bg-muted/50 border-border focus:ring-2 focus:ring-gold-500 focus:border-gold-500 placeholder:text-muted-foreground focus:bg-background/90 transition-all duration-200" />
+              <Input placeholder="Search luxury watches..." className="pl-10 pr-4 bg-muted/50 border-border focus:ring-2 focus:ring-gold-500 focus:border-gold-500 placeholder:text-muted-foreground focus:bg-background/90 transition-all duration-200" />
             </div>
           </div> */}
 
@@ -89,7 +89,7 @@ export function Header() {
               </Button>
             </Link>
 
-            {/* Notificações - só aparece para usuários logados */}
+            {/* Notifications - only appears for logged in users */}
             {user && (
               <NotificationsDropdown className="hidden md:flex" />
             )}
@@ -122,36 +122,36 @@ export function Header() {
                     <DropdownMenuItem className="hover:bg-muted">
                       <Link href="/balance" className="w-full flex items-center gap-3">
                         <Wallet className="h-4 w-4 text-primary" />
-                        <span>Meu Saldo</span>
+                        <span>My Balance</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="hover:bg-muted">
                       <Link href="/notifications" className="w-full flex items-center gap-3">
                         <Bell className="h-4 w-4 text-primary" />
-                        <span>Notificações</span>
+                        <span>Notifications</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="hover:bg-muted">
                       <Link href="/my-watches" className="w-full flex items-center gap-3">
                         <Heart className="h-4 w-4 text-primary" />
-                        <span>Meus Relógios</span>
+                        <span>My Watches</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="hover:bg-muted">
                       <Link href="/orders" className="w-full flex items-center gap-3">
                         <ShoppingBag className="h-4 w-4 text-primary" />
-                        <span>Pedidos</span>
+                        <span>Orders</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator className="bg-border" />
                     <DropdownMenuItem onClick={logout} className="text-destructive hover:bg-destructive/10 hover:text-destructive">
-                      <span>Sair</span>
+                      <span>Sign Out</span>
                     </DropdownMenuItem>
                   </>
                 ) : (
                   <DropdownMenuItem className="hover:bg-muted">
                     <Link href="/login" className="w-full">
-                      Entrar
+                      Login
                     </Link>
                   </DropdownMenuItem>
                 )}
@@ -171,19 +171,19 @@ export function Header() {
             <nav className="flex flex-col space-y-4">
               <div className="relative mb-4">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="Buscar relógios..." className="pl-10 pr-4 bg-muted/50" />
+                <Input placeholder="Search watches..." className="pl-10 pr-4 bg-muted/50" />
               </div>
               
               <Button variant="ghost" onClick={toggleTheme} className="justify-start hover:bg-muted">
                 {theme === "light" ? <Moon className="h-4 w-4 mr-2" /> : <Sun className="h-4 w-4 mr-2" />}
-                {theme === "light" ? "Modo Escuro" : "Modo Claro"}
+                {theme === "light" ? "Dark Mode" : "Light Mode"}
               </Button>
               
-              {/* Notificações no menu mobile - só para usuários logados */}
+              {/* Notifications in mobile menu - only for logged in users */}
               {user && (
                 <Link href="/notifications" className="flex items-center py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
                   <Bell className="h-4 w-4 mr-2" />
-                  Notificações
+                  Notifications
                 </Link>
               )}
               
@@ -192,13 +192,13 @@ export function Header() {
                   Marketplace
                 </Link>
                 {/* <Link href="/collections" className="flex items-center py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
-                  Coleções
+                  Collections
                 </Link>
                 <Link href="/brands" className="flex items-center py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
-                  Marcas
+                  Brands
                 </Link>
                 <Link href="/about" className="flex items-center py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
-                  Sobre
+                  About
                 </Link> */}
               </div>
             </nav>

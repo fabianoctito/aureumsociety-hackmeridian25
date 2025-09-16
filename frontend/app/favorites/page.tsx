@@ -122,11 +122,11 @@ export default function FavoritesPage() {
                 <Heart className="h-8 w-8 text-red-500" />
               </div>
             </div>
-            <h1 className="text-3xl font-bold">Meus Favoritos</h1>
+            <h1 className="text-3xl font-bold">My Favorites</h1>
             <p className="text-muted-foreground">
               {favoriteWatches.length > 0
-                ? `${favoriteWatches.length} relógio${favoriteWatches.length > 1 ? "s" : ""} na sua lista de favoritos`
-                : "Você ainda não tem relógios favoritos"}
+                ? `${favoriteWatches.length} watch${favoriteWatches.length > 1 ? "es" : ""} in your favorites list`
+                : "You don't have any favorite watches yet"}
             </p>
           </div>
 
@@ -148,7 +148,7 @@ export default function FavoritesPage() {
               <Button asChild>
                 <a href="/marketplace">
                   <ShoppingBag className="h-4 w-4 mr-2" />
-                  Explorar Marketplace
+                  Explore Marketplace
                 </a>
               </Button>
             </div>

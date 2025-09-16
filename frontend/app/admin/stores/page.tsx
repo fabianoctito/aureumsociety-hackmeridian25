@@ -99,7 +99,7 @@ export default function AdminStoresPage() {
         setStores(response.data)
       }
     } catch (error) {
-      console.error("Erro ao carregar lojas:", error)
+      console.error("Error loading stores:", error)
     } finally {
       setLoading(false)
     }
@@ -108,7 +108,7 @@ export default function AdminStoresPage() {
   const filterStores = () => {
     let filtered = stores
 
-    // Filtro por termo de busca
+    // Filter by search term
     if (searchTerm) {
       filtered = filtered.filter(store => 
         store.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -117,7 +117,7 @@ export default function AdminStoresPage() {
       )
     }
 
-    // Filtro por status
+    // Filter by status
     if (statusFilter !== "all") {
       filtered = filtered.filter(store => store.status === statusFilter)
     }
@@ -143,7 +143,7 @@ export default function AdminStoresPage() {
       setShowApprovalDialog(false)
       setApprovalReason("")
     } catch (error) {
-      console.error("Erro ao atualizar status da loja:", error)
+      console.error("Error updating store status:", error)
     }
   }
 
@@ -155,9 +155,9 @@ export default function AdminStoresPage() {
 
   const getStatusBadge = (status: string) => {
     const variants: Record<string, { variant: "default" | "secondary" | "destructive" | "outline", icon: any, label: string }> = {
-      pending: { variant: "outline", icon: Clock, label: "Pendente" },
-      approved: { variant: "default", icon: CheckCircle, label: "Aprovada" },
-      rejected: { variant: "destructive", icon: XCircle, label: "Rejeitada" }
+      pending: { variant: "outline", icon: Clock, label: "Pending" },
+      approved: { variant: "default", icon: CheckCircle, label: "Approved" },
+      rejected: { variant: "destructive", icon: XCircle, label: "Rejected" }
     }
     
     const config = variants[status] || variants.pending
@@ -207,9 +207,9 @@ export default function AdminStoresPage() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Gerenciamento de Lojas</h1>
+          <h1 className="text-3xl font-bold">Store Management</h1>
           <p className="text-muted-foreground">
-            Visualize e gerencie todas as lojas da plataforma
+            View and manage all platform stores
           </p>
         </div>
       </div>
@@ -218,7 +218,7 @@ export default function AdminStoresPage() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Total de Lojas</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Stores</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stores.length}</div>
@@ -226,7 +226,7 @@ export default function AdminStoresPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Lojas Aprovadas</CardTitle>
+            <CardTitle className="text-sm font-medium">Approved Stores</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
@@ -236,7 +236,7 @@ export default function AdminStoresPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Pendentes</CardTitle>
+            <CardTitle className="text-sm font-medium">Pending</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-yellow-600">
@@ -246,7 +246,7 @@ export default function AdminStoresPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Rejeitadas</CardTitle>
+            <CardTitle className="text-sm font-medium">Rejected</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-red-600">
@@ -259,17 +259,17 @@ export default function AdminStoresPage() {
       {/* Filters */}
       <Card>
         <CardHeader>
-          <CardTitle>Filtros</CardTitle>
+          <CardTitle>Filters</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex gap-4 flex-wrap">
             <div className="flex-1 min-w-[200px]">
-              <Label htmlFor="search">Buscar</Label>
+              <Label htmlFor="search">Search</Label>
               <div className="relative">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
                   id="search"
-                  placeholder="Nome da loja, proprietário ou ID..."
+                  placeholder="Store name, owner or ID..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-8"
@@ -283,10 +283,10 @@ export default function AdminStoresPage() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Todos</SelectItem>
-                  <SelectItem value="pending">Pendente</SelectItem>
-                  <SelectItem value="approved">Aprovado</SelectItem>
-                  <SelectItem value="rejected">Rejeitado</SelectItem>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="pending">Pending</SelectItem>
+                  <SelectItem value="approved">Approved</SelectItem>
+                  <SelectItem value="rejected">Rejected</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -297,9 +297,9 @@ export default function AdminStoresPage() {
       {/* Stores Table */}
       <Card>
         <CardHeader>
-          <CardTitle>Lojas ({filteredStores.length})</CardTitle>
+          <CardTitle>Stores ({filteredStores.length})</CardTitle>
           <CardDescription>
-            Lista de todas as lojas cadastradas na plataforma
+            List of all stores registered on the platform
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -307,14 +307,14 @@ export default function AdminStoresPage() {
             <TableHeader>
               <TableRow>
                 <TableHead>ID</TableHead>
-                <TableHead>Nome da Loja</TableHead>
-                <TableHead>Proprietário</TableHead>
+                <TableHead>Store Name</TableHead>
+                <TableHead>Owner</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Relógios</TableHead>
-                <TableHead>Vendas</TableHead>
-                <TableHead>Avaliação</TableHead>
-                <TableHead>Criado em</TableHead>
-                <TableHead className="text-right">Ações</TableHead>
+                <TableHead>Watches</TableHead>
+                <TableHead>Sales</TableHead>
+                <TableHead>Rating</TableHead>
+                <TableHead>Created at</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -350,7 +350,7 @@ export default function AdminStoresPage() {
                       getRatingStars(store.average_rating)
                     ) : (
                       <span className="text-sm text-muted-foreground">
-                        Sem avaliações
+                        No ratings
                       </span>
                     )}
                   </TableCell>
@@ -365,7 +365,7 @@ export default function AdminStoresPage() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Ações</DropdownMenuLabel>
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem
                           onClick={() => {
                             setSelectedStore(store)
@@ -373,7 +373,7 @@ export default function AdminStoresPage() {
                           }}
                         >
                           <Eye className="mr-2 h-4 w-4" />
-                          Ver detalhes
+                          View details
                         </DropdownMenuItem>
                         {store.status === 'pending' && (
                           <>
@@ -383,21 +383,21 @@ export default function AdminStoresPage() {
                               className="text-green-600"
                             >
                               <CheckCircle className="mr-2 h-4 w-4" />
-                              Aprovar
+                              Approve
                             </DropdownMenuItem>
                             <DropdownMenuItem
                               onClick={() => handleApprovalAction(store, 'reject')}
                               className="text-red-600"
                             >
                               <XCircle className="mr-2 h-4 w-4" />
-                              Rejeitar
+                              Reject
                             </DropdownMenuItem>
                           </>
                         )}
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
                           <Edit className="mr-2 h-4 w-4" />
-                          Editar
+                          Edit
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -413,9 +413,9 @@ export default function AdminStoresPage() {
       <Dialog open={showStoreDetails} onOpenChange={setShowStoreDetails}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Detalhes da Loja</DialogTitle>
+            <DialogTitle>Store Details</DialogTitle>
             <DialogDescription>
-              Informações detalhadas sobre {selectedStore?.name}
+              Detailed information about {selectedStore?.name}
             </DialogDescription>
           </DialogHeader>
           {selectedStore && (
@@ -430,7 +430,7 @@ export default function AdminStoresPage() {
                   <p>{selectedStore.name}</p>
                 </div>
                 <div>
-                  <Label className="font-medium">Proprietário</Label>
+                  <Label className="font-medium">Owner</Label>
                   <p>{selectedStore.owner_name}</p>
                 </div>
                 <div>
@@ -440,15 +440,15 @@ export default function AdminStoresPage() {
                   </div>
                 </div>
                 <div>
-                  <Label className="font-medium">Criado em</Label>
+                  <Label className="font-medium">Created at</Label>
                   <p>{new Date(selectedStore.created_at).toLocaleString()}</p>
                 </div>
                 <div>
-                  <Label className="font-medium">Última atividade</Label>
+                  <Label className="font-medium">Last activity</Label>
                   <p>
                     {selectedStore.last_activity 
                       ? new Date(selectedStore.last_activity).toLocaleString()
-                      : "Nenhuma atividade"
+                      : "No activity"
                     }
                   </p>
                 </div>
@@ -456,7 +456,7 @@ export default function AdminStoresPage() {
               
               {selectedStore.description && (
                 <div>
-                  <Label className="font-medium">Descrição</Label>
+                  <Label className="font-medium">Description</Label>
                   <p className="text-sm text-muted-foreground">
                     {selectedStore.description}
                   </p>
@@ -465,25 +465,25 @@ export default function AdminStoresPage() {
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <Label className="font-medium">Total de Relógios</Label>
+                  <Label className="font-medium">Total Watches</Label>
                   <p className="text-2xl font-bold text-blue-600">
                     {selectedStore.total_watches}
                   </p>
                 </div>
                 <div>
-                  <Label className="font-medium">Total de Vendas</Label>
+                  <Label className="font-medium">Total Sales</Label>
                   <p className="text-2xl font-bold text-green-600">
                     {selectedStore.total_sales}
                   </p>
                 </div>
                 <div>
-                  <Label className="font-medium">Avaliação Média</Label>
+                  <Label className="font-medium">Average Rating</Label>
                   <div className="mt-1">
                     {selectedStore.average_rating > 0 ? (
                       getRatingStars(selectedStore.average_rating)
                     ) : (
                       <span className="text-sm text-muted-foreground">
-                        Sem avaliações
+                        No ratings
                       </span>
                     )}
                   </div>
@@ -496,7 +496,7 @@ export default function AdminStoresPage() {
               variant="outline" 
               onClick={() => setShowStoreDetails(false)}
             >
-              Fechar
+              Close
             </Button>
             {selectedStore?.status === 'pending' && (
               <>
@@ -505,13 +505,13 @@ export default function AdminStoresPage() {
                   onClick={() => handleApprovalAction(selectedStore, 'reject')}
                   className="text-red-600 border-red-200 hover:bg-red-50"
                 >
-                  Rejeitar
+                  Reject
                 </Button>
                 <Button 
                   onClick={() => handleApprovalAction(selectedStore, 'approve')}
                   className="bg-green-600 hover:bg-green-700"
                 >
-                  Aprovar
+                  Approve
                 </Button>
               </>
             )}
@@ -524,22 +524,22 @@ export default function AdminStoresPage() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {approvalAction === 'approve' ? 'Aprovar' : 'Rejeitar'} Loja
+              {approvalAction === 'approve' ? 'Approve' : 'Reject'} Store
             </DialogTitle>
             <DialogDescription>
               {approvalAction === 'approve' 
-                ? `Confirme a aprovação da loja "${selectedStore?.name}"`
-                : `Confirme a rejeição da loja "${selectedStore?.name}"`
+                ? `Confirm approval of store "${selectedStore?.name}"`
+                : `Confirm rejection of store "${selectedStore?.name}"`
               }
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             {approvalAction === 'reject' && (
               <div>
-                <Label htmlFor="reason">Motivo da rejeição</Label>
+                <Label htmlFor="reason">Rejection reason</Label>
                 <Textarea
                   id="reason"
-                  placeholder="Explique o motivo da rejeição..."
+                  placeholder="Explain the reason for rejection..."
                   value={approvalReason}
                   onChange={(e) => setApprovalReason(e.target.value)}
                 />
@@ -551,7 +551,7 @@ export default function AdminStoresPage() {
               variant="outline" 
               onClick={() => setShowApprovalDialog(false)}
             >
-              Cancelar
+              Cancel
             </Button>
             <Button 
               onClick={() => {
@@ -566,7 +566,7 @@ export default function AdminStoresPage() {
               variant={approvalAction === 'approve' ? 'default' : 'destructive'}
               disabled={approvalAction === 'reject' && !approvalReason.trim()}
             >
-              {approvalAction === 'approve' ? 'Aprovar' : 'Rejeitar'}
+              {approvalAction === 'approve' ? 'Approve' : 'Reject'}
             </Button>
           </DialogFooter>
         </DialogContent>

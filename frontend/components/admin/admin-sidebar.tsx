@@ -146,7 +146,7 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
         <div className="absolute bottom-4 left-4 right-4">
           <div className="text-xs text-muted-foreground text-center">
             <p>Admin Panel v1.0</p>
-            <p>Aureum Society</p>
+            <p>Aurum Society</p>
           </div>
         </div>
       )}

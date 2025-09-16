@@ -56,8 +56,24 @@ class ApiClient {
       const data = await response.json()
 
       if (!response.ok) {
+        // Trata diferentes tipos de erro do backend
+        let errorMessage = 'Erro na requisição'
+        
+        if (data.detail) {
+          if (typeof data.detail === 'string') {
+            errorMessage = data.detail
+          } else if (Array.isArray(data.detail)) {
+            // Se for um array de erros de validação, pega a primeira mensagem
+            errorMessage = data.detail[0]?.msg || data.detail[0]?.message || 'Erro de validação'
+          } else if (typeof data.detail === 'object') {
+            errorMessage = data.detail.msg || data.detail.message || 'Erro de validação'
+          }
+        } else if (data.message) {
+          errorMessage = data.message
+        }
+        
         return {
-          error: data.detail || data.message || 'Erro na requisição',
+          error: errorMessage,
         }
       }
 
@@ -110,6 +126,7 @@ class ApiClient {
   }
 
   async register(userData: UserCreate) {
+    console.log("API client sending registration data:", userData)
     return this.request<User>('/auth/register', {
       method: 'POST',
       body: JSON.stringify(userData),

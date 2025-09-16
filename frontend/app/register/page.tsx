@@ -13,6 +13,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Crown, User, Store } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
+import { formatErrorMessage } from "@/lib/utils"
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -29,13 +30,13 @@ export default function RegisterPage() {
   const { register } = useAuth()
   const router = useRouter()
 
-  // Função para validar email
+  // Function to validate email
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email)
   }
 
-  // Função para formatar CNPJ
+  // Function to format CNPJ
   const formatCNPJ = (value: string): string => {
     const numbers = value.replace(/\D/g, '')
     if (numbers.length <= 2) return numbers
@@ -45,15 +46,15 @@ export default function RegisterPage() {
     return `${numbers.slice(0, 2)}.${numbers.slice(2, 5)}.${numbers.slice(5, 8)}/${numbers.slice(8, 12)}-${numbers.slice(12, 14)}`
   }
 
-  // Função para validar CNPJ
+  // Function to validate CNPJ
   const validateCNPJ = (cnpj: string): boolean => {
     const numbers = cnpj.replace(/\D/g, '')
     if (numbers.length !== 14) return false
     
-    // Verifica se todos os dígitos são iguais
+    // Check if all digits are the same
     if (/^(\d)\1+$/.test(numbers)) return false
     
-    // Algoritmo de validação do CNPJ
+    // CNPJ validation algorithm
     let sum = 0
     let weight = 2
     for (let i = 11; i >= 0; i--) {
@@ -73,7 +74,7 @@ export default function RegisterPage() {
     return parseInt(numbers[13]) === digit
   }
 
-  // Função para validar senha
+  // Function to validate password
   const validatePassword = (password: string): boolean => {
     return password.length >= 8 && 
            /[A-Z]/.test(password) && 
@@ -81,50 +82,50 @@ export default function RegisterPage() {
            /[0-9]/.test(password)
   }
 
-  // Função de validação completa
+  // Full form validation function
   const validateForm = (): boolean => {
     const newErrors: {[key: string]: string} = {}
 
-    // Validação do nome apenas para cliente
+    // Name validation only for client
     if (formData.type === "client") {
       if (!formData.name.trim()) {
-        newErrors.name = "Nome completo é obrigatório"
+        newErrors.name = "Full name is required"
       } else if (formData.name.trim().length < 2) {
-        newErrors.name = "Nome deve ter pelo menos 2 caracteres"
+        newErrors.name = "Name must have at least 2 characters"
       }
     }
 
-    // Validação do email
+    // Email validation
     if (!formData.email.trim()) {
-      newErrors.email = "Email é obrigatório"
+      newErrors.email = "Email is required"
     } else if (!validateEmail(formData.email)) {
-      newErrors.email = "Email inválido"
+      newErrors.email = "Invalid email"
     }
 
-    // Validação da senha
+    // Password validation
     if (!formData.password) {
-      newErrors.password = "Senha é obrigatória"
+      newErrors.password = "Password is required"
     } else if (!validatePassword(formData.password)) {
-      newErrors.password = "Senha deve ter pelo menos 8 caracteres, incluindo maiúscula, minúscula e número"
+      newErrors.password = "Password must be at least 8 characters, including uppercase, lowercase, and number"
     }
 
-    // Validação da confirmação de senha
+    // Confirm password validation
     if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "As senhas não coincidem"
+      newErrors.confirmPassword = "Passwords do not match"
     }
 
-    // Validações específicas para lojas
+    // Specific validations for stores
     if (formData.type === "store") {
       if (!formData.storeName.trim()) {
-        newErrors.storeName = "Razão social é obrigatória"
+        newErrors.storeName = "Business name is required"
       } else if (formData.storeName.trim().length < 3) {
-        newErrors.storeName = "Razão social deve ter pelo menos 3 caracteres"
+        newErrors.storeName = "Business name must have at least 3 characters"
       }
 
       if (!formData.cnpj.trim()) {
-        newErrors.cnpj = "CNPJ é obrigatório"
+        newErrors.cnpj = "CNPJ is required"
       } else if (!validateCNPJ(formData.cnpj)) {
-        newErrors.cnpj = "CNPJ inválido"
+        newErrors.cnpj = "Invalid CNPJ"
       }
     }
 
@@ -142,20 +143,19 @@ export default function RegisterPage() {
     setIsLoading(true)
 
     try {
-      const role = formData.type === "store" ? "store" : "user"
+      // Define role as the correct type
+      const role = formData.type === "store" ? "store" as const : "user" as const
       
-      // Preparar dados de registro
-      const registerData: any = {
+      // Prepare registration data
+      const registerData = {
         email: formData.email,
         password: formData.password,
-        role: role
+        role: role,
+        // Always include full_name, using appropriate field based on account type
+        full_name: formData.type === "client" ? formData.name : formData.storeName
       }
       
-      // Incluir nome apenas para clientes
-      if (formData.type === "client") {
-        registerData.full_name = formData.name
-      }
-
+      console.log("Registering with data:", registerData)
       const result = await register(registerData)
 
       if (result.success) {
@@ -165,16 +165,16 @@ export default function RegisterPage() {
           router.push("/marketplace")
         }
       } else {
-        setErrors({ submit: result.error || "Erro no cadastro. Tente novamente." })
+        setErrors({ submit: formatErrorMessage(result.error, "Registration error. Please try again.") })
       }
     } catch (error) {
-      setErrors({ submit: error instanceof Error ? error.message : "Erro inesperado ao cadastrar" })
+      setErrors({ submit: error instanceof Error ? error.message : "Unexpected error during registration" })
     } finally {
       setIsLoading(false)
     }
   }
 
-  // Função para limpar erro específico quando o usuário começa a digitar
+  // Function to clear specific error when user starts typing
   const clearError = (field: string) => {
     if (errors[field]) {
       setErrors({ ...errors, [field]: "" })
@@ -192,14 +192,14 @@ export default function RegisterPage() {
                   <Crown className="h-8 w-8 text-primary" />
                 </div>
               </div>
-              <CardTitle className="text-2xl font-serif">Criar Conta - Aurum</CardTitle>
-              <CardDescription>Junte-se ao marketplace de relógios de luxo</CardDescription>
+              <CardTitle className="text-2xl font-serif">Create Account - Aurum</CardTitle>
+              <CardDescription>Join the luxury watch marketplace</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Tipo de Usuário */}
+                {/* Account Type */}
                 <div className="space-y-3">
-                  <Label>Tipo de Conta</Label>
+                  <Label>Account Type</Label>
                   <RadioGroup
                     value={formData.type}
                     onValueChange={(value) => {
@@ -208,12 +208,12 @@ export default function RegisterPage() {
                       setFormData({ 
                         ...formData, 
                         type: newType,
-                        // Limpar campos dependendo do tipo selecionado
+                        // Clear fields depending on selected type
                         ...(newType === "client" ? 
                           { storeName: "", cnpj: "" } : 
                           { name: "" })
                       })
-                      // Limpar erros relacionados
+                      // Clear related errors
                       setErrors({})
                     }}
                     className="grid grid-cols-2 gap-4"
@@ -222,23 +222,23 @@ export default function RegisterPage() {
                       <RadioGroupItem value="client" id="client" />
                       <Label htmlFor="client" className="flex items-center gap-2 cursor-pointer">
                         <User className="h-4 w-4" />
-                        Cliente
+                        Client
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2 border rounded-lg p-4 cursor-pointer hover:bg-muted/50">
                       <RadioGroupItem value="store" id="store" />
                       <Label htmlFor="store" className="flex items-center gap-2 cursor-pointer">
                         <Store className="h-4 w-4" />
-                        Loja
+                        Store
                       </Label>
                     </div>
                   </RadioGroup>
                 </div>
 
-                {/* Dados Pessoais - apenas para cliente */}
+                {/* Personal Data - only for client */}
                 {formData.type === "client" && (
                   <div className="space-y-2">
-                    <Label htmlFor="name">Nome Completo</Label>
+                    <Label htmlFor="name">Full Name</Label>
                     <Input
                       id="name"
                       type="text"
@@ -274,11 +274,11 @@ export default function RegisterPage() {
                   )}
                 </div>
 
-                {/* Dados da Loja (se aplicável) */}
+                {/* Store Data (if applicable) */}
                 {formData.type === "store" && (
                   <>
                     <div className="space-y-2">
-                      <Label htmlFor="storeName">Razão Social</Label>
+                      <Label htmlFor="storeName">Business Name</Label>
                       <Input
                         id="storeName"
                         type="text"
@@ -288,7 +288,7 @@ export default function RegisterPage() {
                           clearError('storeName')
                         }}
                         className={errors.storeName ? "border-destructive" : ""}
-                        placeholder="Ex: Relógios Premium LTDA"
+                        placeholder="e.g. Premium Watches Ltd."
                         required
                       />
                       {errors.storeName && (
@@ -316,14 +316,14 @@ export default function RegisterPage() {
                         <p className="text-sm text-destructive">{errors.cnpj}</p>
                       )}
                       <p className="text-xs text-muted-foreground">
-                        Digite apenas os números, a formatação será aplicada automaticamente
+                        Enter numbers only, formatting will be applied automatically
                       </p>
                     </div>
                   </>
                 )}
 
                 <div className="space-y-2">
-                  <Label htmlFor="password">Senha</Label>
+                  <Label htmlFor="password">Password</Label>
                   <Input
                     id="password"
                     type="password"
@@ -339,12 +339,12 @@ export default function RegisterPage() {
                     <p className="text-sm text-destructive">{errors.password}</p>
                   )}
                   <p className="text-xs text-muted-foreground">
-                    Mínimo 8 caracteres, incluindo maiúscula, minúscula e número
+                    Minimum 8 characters, including uppercase, lowercase, and number
                   </p>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="confirmPassword">Confirmar Senha</Label>
+                  <Label htmlFor="confirmPassword">Confirm Password</Label>
                   <Input
                     id="confirmPassword"
                     type="password"
@@ -361,7 +361,7 @@ export default function RegisterPage() {
                   )}
                 </div>
 
-                {/* Erro geral de submissão */}
+                {/* General submission error */}
                 {errors.submit && (
                   <div className="bg-destructive/10 border border-destructive text-destructive px-3 py-2 rounded-md text-sm">
                     {errors.submit}
@@ -369,13 +369,13 @@ export default function RegisterPage() {
                 )}
 
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Criando conta..." : "Criar Conta"}
+                  {isLoading ? "Creating account..." : "Create Account"}
                 </Button>
 
                 <div className="text-center text-sm text-muted-foreground">
-                  Já tem uma conta?{" "}
+                  Already have an account?{" "}
                   <Link href="/login" className="text-primary hover:underline">
-                    Fazer login
+                    Log in
                   </Link>
                 </div>
               </form>

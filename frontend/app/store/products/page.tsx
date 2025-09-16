@@ -46,11 +46,11 @@ export default function StoreProductsPage() {
         name: "Submariner Date",
         brand: "Rolex",
         price: 85000,
-        category: "Esportivo",
+        category: "Sports",
         status: "active",
         stock: 2,
         image: "/luxury-rolex-submariner.png",
-        description: "Relógio icônico de mergulho com resistência à água de 300m",
+        description: "Iconic diving watch with 300m water resistance",
         createdAt: "2024-01-15",
       },
       {
@@ -58,11 +58,11 @@ export default function StoreProductsPage() {
         name: "Speedmaster Professional",
         brand: "Omega",
         price: 45000,
-        category: "Cronógrafo",
+        category: "Chronograph",
         status: "active",
         stock: 1,
         image: "/omega-speedmaster-luxury-watch.png",
-        description: "O relógio que foi à lua, cronógrafo manual clássico",
+        description: "The watch that went to the moon, classic manual chronograph",
         createdAt: "2024-01-10",
       },
       {
@@ -70,11 +70,11 @@ export default function StoreProductsPage() {
         name: "Royal Oak",
         brand: "Audemars Piguet",
         price: 120000,
-        category: "Luxo",
+        category: "Luxury",
         status: "sold",
         stock: 0,
         image: "/audemars-piguet-royal-oak-luxury-watch.png",
-        description: "Ícone do design octogonal em aço inoxidável",
+        description: "Icon of octagonal design in stainless steel",
         createdAt: "2024-01-05",
       },
     ]
@@ -104,11 +104,11 @@ export default function StoreProductsPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "active":
-        return <Badge className="bg-green-500/10 text-green-500 hover:bg-green-500/20">Ativo</Badge>
+        return <Badge className="bg-green-500/10 text-green-500 hover:bg-green-500/20">Active</Badge>
       case "inactive":
-        return <Badge className="bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20">Inativo</Badge>
+        return <Badge className="bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20">Inactive</Badge>
       case "sold":
-        return <Badge className="bg-blue-500/10 text-blue-500 hover:bg-blue-500/20">Vendido</Badge>
+        return <Badge className="bg-blue-500/10 text-blue-500 hover:bg-blue-500/20">Sold</Badge>
       default:
         return <Badge variant="secondary">{status}</Badge>
     }
@@ -130,7 +130,7 @@ export default function StoreProductsPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Total de Produtos</p>
+                  <p className="text-sm text-muted-foreground">Total Products</p>
                   <p className="text-2xl font-bold text-foreground">{totalProducts}</p>
                 </div>
                 <Package className="h-8 w-8 text-primary" />
@@ -142,7 +142,7 @@ export default function StoreProductsPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Produtos Ativos</p>
+                  <p className="text-sm text-muted-foreground">Active Products</p>
                   <p className="text-2xl font-bold text-foreground">{activeProducts}</p>
                 </div>
                 <TrendingUp className="h-8 w-8 text-green-500" />
@@ -154,7 +154,7 @@ export default function StoreProductsPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Valor Total</p>
+                  <p className="text-sm text-muted-foreground">Total Value</p>
                   <p className="text-2xl font-bold text-primary">
                     R$ {totalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                   </p>
@@ -169,10 +169,10 @@ export default function StoreProductsPage() {
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>Meus Produtos</CardTitle>
+              <CardTitle>My Products</CardTitle>
               <Button onClick={() => router.push("/store/products/add")}>
                 <Plus className="h-4 w-4 mr-2" />
-                Adicionar Produto
+                Add Product
               </Button>
             </div>
 
@@ -181,7 +181,7 @@ export default function StoreProductsPage() {
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Buscar produtos..."
+                  placeholder="Search products..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -193,10 +193,10 @@ export default function StoreProductsPage() {
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Todos</SelectItem>
-                  <SelectItem value="active">Ativo</SelectItem>
-                  <SelectItem value="inactive">Inativo</SelectItem>
-                  <SelectItem value="sold">Vendido</SelectItem>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="active">Active</SelectItem>
+                  <SelectItem value="inactive">Inactive</SelectItem>
+                  <SelectItem value="sold">Sold</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -225,7 +225,7 @@ export default function StoreProductsPage() {
                       <p className="text-sm text-muted-foreground">{product.category}</p>
                       <div className="flex items-center space-x-2 mt-1">
                         {getStatusBadge(product.status)}
-                        <span className="text-sm text-muted-foreground">Estoque: {product.stock}</span>
+                        <span className="text-sm text-muted-foreground">Stock: {product.stock}</span>
                       </div>
                     </div>
                   </div>
@@ -235,7 +235,7 @@ export default function StoreProductsPage() {
                       <p className="font-bold text-primary">
                         R$ {product.price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                       </p>
-                      <p className="text-sm text-muted-foreground">Criado em {product.createdAt}</p>
+                      <p className="text-sm text-muted-foreground">Created on {product.createdAt}</p>
                     </div>
 
                     <div className="flex items-center space-x-2">
@@ -255,7 +255,7 @@ export default function StoreProductsPage() {
 
               {filteredProducts.length === 0 && (
                 <div className="text-center py-8">
-                  <p className="text-muted-foreground">Nenhum produto encontrado</p>
+                  <p className="text-muted-foreground">No products found</p>
                 </div>
               )}
             </div>

@@ -69,7 +69,7 @@ export default function NotificationsPage() {
         setNotifications(response.data)
       }
     } catch (error) {
-      console.error("Erro ao carregar notificações:", error)
+      console.error("Error loading notifications:", error)
     } finally {
       setLoading(false)
     }
@@ -112,7 +112,7 @@ export default function NotificationsPage() {
         n.id === notificationId ? { ...n, read: true } : n
       ))
     } catch (error) {
-      console.error("Erro ao marcar notificação como lida:", error)
+      console.error("Error marking notification as read:", error)
     }
   }
 
@@ -123,7 +123,7 @@ export default function NotificationsPage() {
       
       setNotifications(notifications.map(n => ({ ...n, read: true })))
     } catch (error) {
-      console.error("Erro ao marcar todas as notificações como lidas:", error)
+      console.error("Error marking all notifications as read:", error)
     }
   }
 
@@ -134,7 +134,7 @@ export default function NotificationsPage() {
       
       setNotifications(notifications.filter(n => n.id !== notificationId))
     } catch (error) {
-      console.error("Erro ao deletar notificação:", error)
+      console.error("Error deleting notification:", error)
     }
   }
 
@@ -169,13 +169,13 @@ export default function NotificationsPage() {
 
   const getTypeBadge = (type: string) => {
     const labels = {
-      info: "Informação",
-      success: "Sucesso",
-      warning: "Aviso",
-      error: "Erro",
-      watch: "Relógio",
-      evaluation: "Avaliação",
-      user: "Usuário"
+      info: "Information",
+      success: "Success",
+      warning: "Warning",
+      error: "Error",
+      watch: "Watch",
+      evaluation: "Evaluation",
+      user: "User"
     }
     
     return (
@@ -205,22 +205,22 @@ export default function NotificationsPage() {
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-2">
             <Bell className="h-8 w-8" />
-            Notificações
+            Notifications
           </h1>
           <p className="text-muted-foreground">
-            Gerencie todas as suas notificações
+            Manage all your notifications
           </p>
         </div>
         <div className="flex gap-2">
           {unreadCount > 0 && (
             <Button onClick={markAllAsRead} variant="outline">
               <Check className="mr-2 h-4 w-4" />
-              Marcar todas como lidas
+              Mark all as read
             </Button>
           )}
           <Link href="/marketplace">
             <Button variant="outline">
-              Voltar ao Marketplace
+              Back to Marketplace
             </Button>
           </Link>
         </div>
@@ -238,7 +238,7 @@ export default function NotificationsPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Não lidas</CardTitle>
+            <CardTitle className="text-sm font-medium">Unread</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-blue-600">{unreadCount}</div>
@@ -246,7 +246,7 @@ export default function NotificationsPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Lidas</CardTitle>
+            <CardTitle className="text-sm font-medium">Read</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
@@ -256,7 +256,7 @@ export default function NotificationsPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Hoje</CardTitle>
+            <CardTitle className="text-sm font-medium">Today</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-purple-600">
@@ -273,17 +273,17 @@ export default function NotificationsPage() {
       {/* Filters */}
       <Card>
         <CardHeader>
-          <CardTitle>Filtros</CardTitle>
+          <CardTitle>Filters</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex gap-4 flex-wrap">
             <div className="flex-1 min-w-[200px]">
-              <Label htmlFor="search">Buscar</Label>
+              <Label htmlFor="search">Search</Label>
               <div className="relative">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
                   id="search"
-                  placeholder="Título ou conteúdo..."
+                  placeholder="Title or content..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-8"
@@ -291,20 +291,20 @@ export default function NotificationsPage() {
               </div>
             </div>
             <div>
-              <Label>Tipo</Label>
+              <Label>Type</Label>
               <Select value={typeFilter} onValueChange={setTypeFilter}>
                 <SelectTrigger className="w-[150px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Todos</SelectItem>
-                  <SelectItem value="info">Informação</SelectItem>
-                  <SelectItem value="success">Sucesso</SelectItem>
-                  <SelectItem value="warning">Aviso</SelectItem>
-                  <SelectItem value="error">Erro</SelectItem>
-                  <SelectItem value="watch">Relógio</SelectItem>
-                  <SelectItem value="evaluation">Avaliação</SelectItem>
-                  <SelectItem value="user">Usuário</SelectItem>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="info">Information</SelectItem>
+                  <SelectItem value="success">Success</SelectItem>
+                  <SelectItem value="warning">Warning</SelectItem>
+                  <SelectItem value="error">Error</SelectItem>
+                  <SelectItem value="watch">Watch</SelectItem>
+                  <SelectItem value="evaluation">Evaluation</SelectItem>
+                  <SelectItem value="user">User</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -315,9 +315,9 @@ export default function NotificationsPage() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Todas</SelectItem>
-                  <SelectItem value="unread">Não lidas</SelectItem>
-                  <SelectItem value="read">Lidas</SelectItem>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="unread">Unread</SelectItem>
+                  <SelectItem value="read">Read</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -328,9 +328,9 @@ export default function NotificationsPage() {
       {/* Notifications List */}
       <Card>
         <CardHeader>
-          <CardTitle>Suas Notificações ({filteredNotifications.length})</CardTitle>
+          <CardTitle>Your Notifications ({filteredNotifications.length})</CardTitle>
           <CardDescription>
-            Lista de todas as suas notificações
+            List of all your notifications
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -339,14 +339,14 @@ export default function NotificationsPage() {
               <Bell className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
               <h3 className="text-lg font-medium mb-2">
                 {searchTerm || typeFilter !== 'all' || statusFilter !== 'all' 
-                  ? 'Nenhuma notificação encontrada' 
-                  : 'Nenhuma notificação'
+                  ? 'No notifications found' 
+                  : 'No notifications'
                 }
               </h3>
               <p className="text-muted-foreground">
                 {searchTerm || typeFilter !== 'all' || statusFilter !== 'all'
-                  ? 'Tente ajustar seus filtros de busca'
-                  : 'Você não tem notificações no momento'
+                  ? 'Try adjusting your search filters'
+                  : 'You have no notifications at the moment'
                 }
               </p>
             </div>
@@ -392,14 +392,14 @@ export default function NotificationsPage() {
                               variant="ghost"
                               size="sm"
                               onClick={() => markAsRead(notification.id)}
-                              title="Marcar como lida"
+                              title="Mark as read"
                             >
                               <Check className="h-4 w-4" />
                             </Button>
                           )}
                           {notification.action_url && (
                             <Link href={notification.action_url}>
-                              <Button variant="ghost" size="sm" title="Ver detalhes">
+                              <Button variant="ghost" size="sm" title="View details">
                                 <Eye className="h-4 w-4" />
                               </Button>
                             </Link>
@@ -408,7 +408,7 @@ export default function NotificationsPage() {
                             variant="ghost"
                             size="sm"
                             onClick={() => deleteNotification(notification.id)}
-                            title="Excluir"
+                            title="Delete"
                             className="text-red-600 hover:text-red-700 hover:bg-red-50"
                           >
                             <Trash2 className="h-4 w-4" />

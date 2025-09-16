@@ -18,13 +18,13 @@ const dmSerifText = DM_Serif_Text({
 })
 
 export const metadata: Metadata = {
-  title: "Aurum - Relógios de Luxo",
-  description: "Marketplace exclusivo de relógios de luxo com pagamento em criptomoedas",
+  title: "Aurum - Luxury Watches",
+  description: "Exclusive luxury watch marketplace with cryptocurrency payment options",
   generator: "v0.app",
   metadataBase: new URL('https://aurum-marketplace.vercel.app'),
   openGraph: {
-    title: "Aurum - Relógios de Luxo",
-    description: "Marketplace exclusivo de relógios de luxo com pagamento em criptomoedas",
+    title: "Aurum - Luxury Watches",
+    description: "Exclusive luxury watch marketplace with cryptocurrency payment options",
     type: "website",
   },
   robots: {
@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="en">
       <head>
         {/* Critical resource hints for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

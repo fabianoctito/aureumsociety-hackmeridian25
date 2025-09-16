@@ -100,13 +100,13 @@ export default function MyWatchesPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold">Acesso Restrito</h1>
+              <h1 className="text-3xl font-bold">Restricted Access</h1>
               <p className="text-muted-foreground max-w-md mx-auto">
-                Você precisa estar logado para acessar sua coleção de relógios.
+                You need to be logged in to access your watch collection.
               </p>
             </div>
             <Link href="/login">
-              <Button size="lg">Fazer Login</Button>
+              <Button size="lg">Log In</Button>
             </Link>
           </div>
         </div>
@@ -146,26 +146,26 @@ export default function MyWatchesPage() {
           await updateWatch(id, { status: "for_sale" })
           break
         case "delete":
-          if (confirm("Tem certeza que deseja remover este relógio da sua coleção?")) {
+          if (confirm("Are you sure you want to remove this watch from your collection?")) {
             await deleteWatch(id)
           }
           break
         case "edit":
-          // Implementar modal de edição
+          // Implement edit modal
           
           break
         case "view":
-          // Navegar para página de detalhes
+          // Navigate to details page
           
           break
         case "share":
-          // Implementar compartilhamento
+          // Implement sharing
           
           break
       }
     } catch (error) {
       console.error("Error performing action:", error)
-      // Aqui você pode adicionar um toast de erro
+      // Add an error toast here
     }
   }
 
@@ -180,7 +180,7 @@ export default function MyWatchesPage() {
 
     return {
       id: userWatch.id,
-      name: watch?.name || userWatch.custom_name || 'Relógio',
+      name: watch?.name || userWatch.custom_name || 'Watch',
       brand: brand.name,
       purchasePrice: userWatch.purchase_price,
       currentValue: userWatch.current_value || userWatch.purchase_price,
@@ -199,10 +199,10 @@ export default function MyWatchesPage() {
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-destructive mb-4">Erro ao carregar coleção</h1>
+            <h1 className="text-2xl font-bold text-destructive mb-4">Error loading collection</h1>
             <p className="text-muted-foreground">{watchesError}</p>
             <Button onClick={() => window.location.reload()} className="mt-4">
-              Tentar novamente
+              Try Again
             </Button>
           </div>
         </div>
@@ -219,12 +219,12 @@ export default function MyWatchesPage() {
           {/* Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <h1 className="text-3xl font-bold">Minha Coleção</h1>
-              <p className="text-muted-foreground">Gerencie seus relógios de luxo</p>
+              <h1 className="text-3xl font-bold">My Collection</h1>
+              <p className="text-muted-foreground">Manage your luxury watches</p>
             </div>
             <AddWatchDialog 
               onAddWatch={async (watchData) => {
-                // Implementar lógica de adicionar relógio
+                // Implement add watch logic
                 
               }}
             />
@@ -252,7 +252,7 @@ export default function MyWatchesPage() {
               <div className="relative flex-1 max-w-md">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Buscar relógios..."
+                  placeholder="Search watches..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -261,13 +261,13 @@ export default function MyWatchesPage() {
 
               <Select value={filterStatus} onValueChange={setFilterStatus}>
                 <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Filtrar por status" />
+                  <SelectValue placeholder="Filter by status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Todos</SelectItem>
-                  <SelectItem value="owned">Meus Relógios</SelectItem>
-                  <SelectItem value="for_sale">À Venda</SelectItem>
-                  <SelectItem value="sold">Vendidos</SelectItem>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="owned">My Watches</SelectItem>
+                  <SelectItem value="for_sale">For Sale</SelectItem>
+                  <SelectItem value="sold">Sold</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -296,16 +296,16 @@ export default function MyWatchesPage() {
           <Tabs defaultValue="all" className="w-full">
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="all">
-                Todos ({userWatches?.length || 0})
+                All ({userWatches?.length || 0})
               </TabsTrigger>
               <TabsTrigger value="owned">
-                Meus Relógios ({userWatches?.filter((w) => w.status === "owned").length || 0})
+                My Watches ({userWatches?.filter((w) => w.status === "owned").length || 0})
               </TabsTrigger>
               <TabsTrigger value="for_sale">
-                À Venda ({userWatches?.filter((w) => w.status === "for_sale").length || 0})
+                For Sale ({userWatches?.filter((w) => w.status === "for_sale").length || 0})
               </TabsTrigger>
               <TabsTrigger value="sold">
-                Vendidos ({userWatches?.filter((w) => w.status === "sold").length || 0})
+                Sold ({userWatches?.filter((w) => w.status === "sold").length || 0})
               </TabsTrigger>
             </TabsList>
 
@@ -375,11 +375,11 @@ export default function MyWatchesPage() {
                   <Plus className="h-12 w-12 text-muted-foreground" />
                 </div>
               </div>
-              <h3 className="text-lg font-semibold mb-2">Nenhum relógio encontrado</h3>
+              <h3 className="text-lg font-semibold mb-2">No watches found</h3>
               <p className="text-muted-foreground mb-4">
                 {searchTerm || filterStatus !== "all" 
-                  ? "Tente ajustar os filtros ou termos de busca"
-                  : "Comece adicionando seu primeiro relógio à coleção"
+                  ? "Try adjusting the filters or search terms"
+                  : "Start by adding your first watch to the collection"
                 }
               </p>
               {(!searchTerm && filterStatus === "all") && (
@@ -390,7 +390,7 @@ export default function MyWatchesPage() {
                   trigger={
                     <Button size="lg">
                       <Plus className="h-4 w-4 mr-2" />
-                      Adicionar Primeiro Relógio
+                      Add First Watch
                     </Button>
                   }
                 />

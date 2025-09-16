@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { User, LoginCredentials, UserCreate } from '@/types/api'
 import { getApiClient } from '@/lib/api-client'
+import { formatErrorMessage } from '@/lib/utils'
 
 interface AuthContextType {
   user: User | null
@@ -66,7 +67,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else {
         return { 
           success: false, 
-          error: response.error || 'Erro no login' 
+          error: formatErrorMessage(response.error, 'Erro no login')
         }
       }
     } catch (error) {
@@ -82,6 +83,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const register = async (userData: UserCreate) => {
     try {
       setLoading(true)
+      console.log("Auth context sending registration data:", userData)
       const response = await getApiClient().register(userData)
       
       if (response.data) {
@@ -94,7 +96,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else {
         return { 
           success: false, 
-          error: response.error || 'Erro no cadastro' 
+          error: formatErrorMessage(response.error, 'Erro no cadastro')
         }
       }
     } catch (error) {

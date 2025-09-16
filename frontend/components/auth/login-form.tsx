@@ -81,7 +81,7 @@ export function LoginForm() {
               </div>
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Entrando..." : "Entrar"}
+              {loading ? "Loggin in..." : "Login"}
             </Button>
             <div className="text-center">
               <Button variant="link" className="text-sm text-muted-foreground">

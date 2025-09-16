@@ -43,26 +43,20 @@ export function WatchCard({
   const router = useRouter()
 
   const handleToggleFavorite = () => {
-    
     toggleFavorite(id)
     onToggleFavorite?.(id)
 
     if (!isFavorite(id)) {
-      // Could add a toast notification here
-      
       router.push("/favorites")
     }
   }
 
   const handleAddToCart = () => {
-    
     onAddToCart?.(id)
-    // Redirect to checkout after adding to cart
     router.push("/checkout")
   }
 
   const handleQuickView = () => {
-    
     router.push(`/product/${id}`)
     onQuickView?.(id)
   }
@@ -91,12 +85,12 @@ export function WatchCard({
           <div className="absolute top-3 left-3 flex flex-col gap-2">
             {isNew && (
               <Badge variant="secondary" className="bg-primary text-primary-foreground">
-                Novo
+                New
               </Badge>
             )}
             {isLimited && (
               <Badge variant="outline" className="bg-background/90 backdrop-blur-sm">
-                Edição Limitada
+                Limited Edition
               </Badge>
             )}
           </div>
@@ -115,7 +109,7 @@ export function WatchCard({
                 e.stopPropagation()
                 handleToggleFavorite()
               }}
-              aria-label={isFavorite(id) ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+              aria-label={isFavorite(id) ? "Remove from favorites" : "Add to favorites"}
             >
               <Heart className={`h-4 w-4 ${isFavorite(id) ? "fill-red-500 text-red-500" : ""}`} />
             </Button>
@@ -127,7 +121,7 @@ export function WatchCard({
                 e.stopPropagation()
                 handleQuickView()
               }}
-              aria-label="Ver detalhes do produto"
+              aria-label="View product details"
             >
               <Eye className="h-4 w-4" />
             </Button>
@@ -162,12 +156,12 @@ export function WatchCard({
             }}
           >
             <ShoppingBag className="h-4 w-4 mr-2" />
-            Comprar Agora
+            Buy Now
           </Button>
         </CardContent>
       </Card>
 
-      {/* Quick View Modal - keeping as backup option */}
+      {/* Quick View Modal */}
       <WatchQuickView
         isOpen={showQuickView}
         onClose={() => setShowQuickView(false)}

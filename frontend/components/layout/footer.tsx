@@ -15,8 +15,7 @@ export function Footer() {
               <span className="text-xl font-bold text-foreground">Aurum</span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Sua coleção de relógios de luxo merece o melhor. Descubra peças exclusivas e invista em elegância
-              atemporal.
+              Your luxury watch collection deserves the finest. Discover exclusive pieces and invest in timeless elegance.
             </p>
             <div className="flex space-x-4">
               <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
@@ -33,37 +32,31 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">Links Rápidos</h3>
+            <h3 className="font-semibold text-foreground">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link
-                  href="/marketplace"
-                  className="text-muted-foreground hover:text-primary transition-colors text-sm"
-                >
+                <Link href="/marketplace" className="text-muted-foreground hover:text-primary transition-colors text-sm">
                   Marketplace
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/collections"
-                  className="text-muted-foreground hover:text-primary transition-colors text-sm"
-                >
-                  Coleções
+                <Link href="/collections" className="text-muted-foreground hover:text-primary transition-colors text-sm">
+                  Collections
                 </Link>
               </li>
               <li>
                 <Link href="/brands" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                  Marcas
+                  Brands
                 </Link>
               </li>
               <li>
                 <Link href="/favorites" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                  Favoritos
+                  Favorites
                 </Link>
               </li>
               <li>
                 <Link href="/my-watches" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                  Minha Coleção
+                  My Collection
                 </Link>
               </li>
             </ul>
@@ -71,34 +64,31 @@ export function Footer() {
 
           {/* Support */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">Suporte</h3>
+            <h3 className="font-semibold text-foreground">Support</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/help" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                  Central de Ajuda
+                  Help Center
                 </Link>
               </li>
               <li>
                 <Link href="/shipping" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                  Envios & Devoluções
+                  Shipping & Returns
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/authentication"
-                  className="text-muted-foreground hover:text-primary transition-colors text-sm"
-                >
-                  Autenticação
+                <Link href="/authentication" className="text-muted-foreground hover:text-primary transition-colors text-sm">
+                  Authentication
                 </Link>
               </li>
               <li>
                 <Link href="/warranty" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                  Garantia
+                  Warranty
                 </Link>
               </li>
               <li>
                 <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-                  Política de Privacidade
+                  Privacy Policy
                 </Link>
               </li>
             </ul>
@@ -106,11 +96,11 @@ export function Footer() {
 
           {/* Contact */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">Contato</h3>
+            <h3 className="font-semibold text-foreground">Contact</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground text-sm">contato@luxtime.com</span>
+                <span className="text-muted-foreground text-sm">contact@aurum.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-4 w-4 text-primary" />
@@ -130,13 +120,13 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p className="text-muted-foreground text-sm">© 2024 LuxTime. Todos os direitos reservados.</p>
+          <p className="text-muted-foreground text-sm">© 2024 Aurum. All rights reserved.</p>
           <div className="flex space-x-6">
             <Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-              Termos de Uso
+              Terms of Use
             </Link>
             <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors text-sm">
-              Privacidade
+              Privacy
             </Link>
             <Link href="/cookies" className="text-muted-foreground hover:text-primary transition-colors text-sm">
               Cookies

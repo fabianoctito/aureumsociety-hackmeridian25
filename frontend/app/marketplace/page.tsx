@@ -129,7 +129,7 @@ export default function MarketplacePage() {
       const result = {
         id: watch.id?.toString() || String(watch.id) || Math.random().toString(),
         name: watch.name || `${watch.brand || ''} ${watch.model || ''}`.trim() || 'Relógio',
-        brand: watch.brand || 'Marca não informada',
+        brand: watch.brand || 'Brand not informed',
         price: typeof watch.price === 'number' ? watch.price : 
                typeof watch.current_value_brl === 'number' ? watch.current_value_brl : 0,
         cryptoPrice: watch.crypto_price || watch.cryptoPrice || '0.001 BTC',
@@ -202,14 +202,14 @@ export default function MarketplacePage() {
 
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Ordenar por" />
+                  <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="newest">Mais recentes</SelectItem>
                   <SelectItem value="popular">Mais populares</SelectItem>
-                  <SelectItem value="price-low">Menor preço</SelectItem>
-                  <SelectItem value="price-high">Maior preço</SelectItem>
-                  <SelectItem value="brand">Marca A-Z</SelectItem>
+                  <SelectItem value="price-low">Lower price</SelectItem>
+                  <SelectItem value="price-high">Higher price</SelectItem>
+                  <SelectItem value="brand">Brand A-Z</SelectItem>
                 </SelectContent>
               </Select>
 

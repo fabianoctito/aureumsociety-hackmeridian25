@@ -11,6 +11,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Eye, EyeOff, Lock, Mail, Crown } from "lucide-react"
 import { useAuth } from "@/contexts/auth-context-api"
 import { Footer } from "@/components/layout/footer"
+import { formatErrorMessage } from "@/lib/utils"
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -34,10 +35,10 @@ export default function LoginPage() {
       if (result.success) {
         router.push("/marketplace")
       } else {
-        setError(result.error || "Erro no login")
+        setError(formatErrorMessage(result.error, "Login error"))
       }
     } catch (err) {
-      setError("Erro inesperado. Tente novamente.")
+      setError("Unexpected error. Please try again.")
     } finally {
       setLoading(false)
     }
@@ -60,9 +61,9 @@ export default function LoginPage() {
                 <Crown className="h-8 w-8 text-primary-foreground" />
               </div>
             </div>
-            <CardTitle className="text-2xl font-serif">Entrar na Aurum</CardTitle>
+            <CardTitle className="text-2xl font-serif">Login to Aurum</CardTitle>
             <CardDescription>
-              Acesse sua conta para explorar relógios de luxo
+              Access your account to explore luxury watches
             </CardDescription>
           </CardHeader>
           
@@ -82,7 +83,7 @@ export default function LoginPage() {
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="seu@email.com"
+                    placeholder="your@email.com"
                     value={formData.email}
                     onChange={handleChange}
                     className="pl-10"
@@ -92,14 +93,14 @@ export default function LoginPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Senha</Label>
+                <Label htmlFor="password">Password</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="password"
                     name="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder="Sua senha"
+                    placeholder="Your password"
                     value={formData.password}
                     onChange={handleChange}
                     className="pl-10 pr-10 mb-4"
@@ -122,19 +123,19 @@ export default function LoginPage() {
                 className="w-full" 
                 disabled={loading}
               >
-                {loading ? "Entrando..." : "Entrar"}
+                {loading ? "Logging in..." : "Log In"}
               </Button>
 
               <div className="text-center text-sm text-muted-foreground">
-                Não tem uma conta?{" "}
+                Don't have an account?{" "}
                 <Link href="/register" className="text-primary hover:underline">
-                  Cadastre-se
+                  Sign Up
                 </Link>
               </div>
 
               <div className="text-center">
                 <Link href="/" className="text-sm text-muted-foreground hover:text-primary">
-                  ← Voltar ao início
+                  ← Back to Home
                 </Link>
               </div>
             </CardFooter>

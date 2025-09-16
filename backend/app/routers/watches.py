@@ -17,14 +17,14 @@ async def create_watch(
     current_user = Depends(require_role(["store"])),
     db: Session = Depends(get_db)
 ):
-    # Validação rigorosa de número de série
+    # Strict serial number validation
     if not watch.serial_number or len(watch.serial_number.strip()) < 3:
         raise HTTPException(
             status_code=400, 
-            detail="Número de série deve ter pelo menos 3 caracteres"
+            detail="Serial number must have at least 3 characters"
         )
     
-    # Verificar duplicação (case insensitive e trim)
+    # Check for duplication (case insensitive and trim)
     serial_clean = watch.serial_number.strip().upper()
     existing = db.query(Watch).filter(
         func.upper(func.trim(Watch.serial_number)) == serial_clean
@@ -33,15 +33,15 @@ async def create_watch(
     if existing:
         raise HTTPException(
             status_code=400, 
-            detail=f"Número de série '{watch.serial_number}' já cadastrado"
+            detail=f"Serial number '{watch.serial_number}' already registered"
         )
     
-    # Busca a loja do usuário
+    # Find user's store
     store = db.query(Store).filter(Store.user_id == int(current_user["sub"])).first()
     if not store:
-        raise HTTPException(status_code=404, detail="Loja não encontrada")
+        raise HTTPException(status_code=404, detail="Store not found")
     
-    # Cria relógio
+    # Create watch
     db_watch = Watch(
         serial_number=watch.serial_number.strip(),
         brand=watch.brand,
@@ -113,47 +113,47 @@ def purchase_watch(
     current_user = Depends(require_role(["user"])),
     db: Session = Depends(get_db)
 ):
-    # Buscar relógio com join para otimizar
+    # Find watch with join for optimization
     watch = db.query(Watch).filter(
         Watch.id == watch_id, 
         Watch.status == "for_sale"
     ).first()
     
     if not watch:
-        raise HTTPException(status_code=404, detail="Relógio não disponível para venda")
+        raise HTTPException(status_code=404, detail="Watch not available for sale")
     
     current_user_id = int(current_user["sub"])
     
-    # Verificar se não é o próprio dono atual
+    # Check if not the current owner
     if watch.current_owner_user_id == current_user_id:
         raise HTTPException(
             status_code=400, 
-            detail="Você não pode comprar seu próprio relógio"
+            detail="You cannot buy your own watch"
         )
     
-    # Verificar se não é a loja dona do relógio
+    # Check if not the store owning the watch
     if watch.store_id:
         store = db.query(Store).filter(Store.id == watch.store_id).first()
         if store and store.user_id == current_user_id:
             raise HTTPException(
                 status_code=400,
-                detail="Loja não pode comprar relógio que está vendendo"
+                detail="Store cannot buy watch it is selling"
             )
     
-    # Atualizar proprietário e status
+    # Update owner and status
     watch.current_owner_user_id = current_user_id
     watch.status = "sold"
     db.commit()
     db.refresh(watch)
     
-    return {"message": "Compra realizada com sucesso", "watch": watch}
+    return {"message": "Purchase completed successfully", "watch": watch}
 
 @router.get("/search", response_model=List[WatchOut])
 def search_watches(
     q: str,  # Query de busca
     db: Session = Depends(get_db)
 ):
-    """Busca relógios por texto em marca, modelo ou descrição"""
+    """Search watches by text in brand, model or description"""
     search_term = f"%{q.lower()}%"
     
     watches = db.query(Watch).filter(
@@ -178,7 +178,7 @@ def filter_watches(
     price_max: float = None,
     db: Session = Depends(get_db)
 ):
-    """Filtros avançados para relógios"""
+    """Advanced filters for watches"""
     query = db.query(Watch).filter(Watch.status == "for_sale")
     
     if brand:
@@ -203,7 +203,7 @@ def my_watches(
     current_user = Depends(require_role(["user", "store"])),
     db: Session = Depends(get_db)
 ):
-    # Lista relógios do usuário ou loja
+    # List user's or store's watches
     return db.query(Watch).filter(Watch.current_owner_user_id == int(current_user["sub"])).all()
 
 @router.post("/{watch_id}/favorite")
@@ -212,38 +212,38 @@ def toggle_favorite(
     current_user = Depends(require_role(["user"])),
     db: Session = Depends(get_db)
 ):
-    """Adiciona ou remove relógio dos favoritos"""
+    """Add or remove watch from favorites"""
     user_id = int(current_user["sub"])
     
-    # Verificar se relógio existe
+    # Check if watch exists
     watch = db.query(Watch).filter(Watch.id == watch_id).first()
     if not watch:
-        raise HTTPException(status_code=404, detail="Relógio não encontrado")
+        raise HTTPException(status_code=404, detail="Watch not found")
     
-    # Verificar se já está nos favoritos
+    # Check if already in favorites
     existing_favorite = db.query(Favorite).filter(
         Favorite.user_id == user_id,
         Favorite.watch_id == watch_id
     ).first()
     
     if existing_favorite:
-        # Remove dos favoritos
+        # Remove from favorites
         db.delete(existing_favorite)
         db.commit()
-        return {"message": "Relógio removido dos favoritos", "is_favorite": False}
+        return {"message": "Watch removed from favorites", "is_favorite": False}
     else:
-        # Adiciona aos favoritos
+        # Add to favorites
         favorite = Favorite(user_id=user_id, watch_id=watch_id)
         db.add(favorite)
         db.commit()
-        return {"message": "Relógio adicionado aos favoritos", "is_favorite": True}
+        return {"message": "Watch added to favorites", "is_favorite": True}
 
 @router.get("/favorites", response_model=List[WatchOut])
 def get_favorites(
     current_user = Depends(require_role(["user"])),
     db: Session = Depends(get_db)
 ):
-    """Lista relógios favoritos do usuário"""
+    """List user's favorite watches"""
     user_id = int(current_user["sub"])
     
     favorites = db.query(Watch).join(Favorite).filter(
@@ -256,7 +256,7 @@ def get_favorites(
 def get_watch(watch_id: int, db: Session = Depends(get_db)):
     watch = db.query(Watch).filter(Watch.id == watch_id).first()
     if not watch:
-        raise HTTPException(status_code=404, detail="Relógio não encontrado")
+        raise HTTPException(status_code=404, detail="Watch not found")
     return watch
 
 @router.get("/{watch_id}/history")
@@ -264,18 +264,18 @@ def get_watch_history(
     watch_id: int,
     db: Session = Depends(get_db)
 ):
-    """Histórico detalhado de um relógio"""
+    """Detailed history of a watch"""
     watch = db.query(Watch).filter(Watch.id == watch_id).first()
     if not watch:
-        raise HTTPException(status_code=404, detail="Relógio não encontrado")
+        raise HTTPException(status_code=404, detail="Watch not found")
     
-    # Buscar transferências
+    # Find transfers
     from app.models import OwnershipTransfer, Evaluation
     transfers = db.query(OwnershipTransfer).filter(
         OwnershipTransfer.watch_id == watch_id
     ).order_by(OwnershipTransfer.created_at.desc()).all()
     
-    # Buscar avaliações
+    # Find evaluations
     evaluations = db.query(Evaluation).filter(
         Evaluation.watch_id == watch_id
     ).order_by(Evaluation.created_at.desc()).all()
@@ -302,4 +302,4 @@ def get_watch_history(
         } for e in evaluations]
     }
 
-# Adicione endpoints extras conforme necessário (ex: histórico, detalhes, etc)
+# Add extra endpoints as needed (ex: history, details, etc)

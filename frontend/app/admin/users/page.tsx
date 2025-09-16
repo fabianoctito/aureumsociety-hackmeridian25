@@ -92,7 +92,7 @@ export default function AdminUsersPage() {
         setUsers(response.data)
       }
     } catch (error) {
-      console.error("Erro ao carregar usuários:", error)
+      console.error("Error loading users:", error)
     } finally {
       setLoading(false)
     }
@@ -101,7 +101,7 @@ export default function AdminUsersPage() {
   const filterUsers = () => {
     let filtered = users
 
-    // Filtro por termo de busca
+    // Filter by search term
     if (searchTerm) {
       filtered = filtered.filter(user => 
         user.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -110,12 +110,12 @@ export default function AdminUsersPage() {
       )
     }
 
-    // Filtro por role
+    // Filter by role
     if (roleFilter !== "all") {
       filtered = filtered.filter(user => user.role === roleFilter)
     }
 
-    // Filtro por status
+    // Filter by status
     if (statusFilter !== "all") {
       if (statusFilter === "active") {
         filtered = filtered.filter(user => user.is_active)
@@ -141,7 +141,7 @@ export default function AdminUsersPage() {
           : user
       ))
     } catch (error) {
-      console.error("Erro ao alterar status do usuário:", error)
+      console.error("Error changing user status:", error)
     }
   }
 
@@ -170,12 +170,12 @@ export default function AdminUsersPage() {
         {isActive ? (
           <>
             <CheckCircle className="h-3 w-3 mr-1" />
-            Ativo
+            Active
           </>
         ) : (
           <>
             <XCircle className="h-3 w-3 mr-1" />
-            Inativo
+            Inactive
           </>
         )}
       </Badge>
@@ -198,9 +198,9 @@ export default function AdminUsersPage() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Gerenciamento de Usuários</h1>
+          <h1 className="text-3xl font-bold">User Management</h1>
           <p className="text-muted-foreground">
-            Visualize e gerencie todos os usuários da plataforma
+            View and manage all platform users
           </p>
         </div>
         <Button>
@@ -212,7 +212,7 @@ export default function AdminUsersPage() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Total de Usuários</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Users</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{users.length}</div>
@@ -220,7 +220,7 @@ export default function AdminUsersPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Usuários Ativos</CardTitle>
+            <CardTitle className="text-sm font-medium">Active Users</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
@@ -240,7 +240,7 @@ export default function AdminUsersPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Avaliadores</CardTitle>
+            <CardTitle className="text-sm font-medium">Evaluators</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-purple-600">
@@ -253,17 +253,17 @@ export default function AdminUsersPage() {
       {/* Filters */}
       <Card>
         <CardHeader>
-          <CardTitle>Filtros</CardTitle>
+          <CardTitle>Filters</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex gap-4 flex-wrap">
             <div className="flex-1 min-w-[200px]">
-              <Label htmlFor="search">Buscar</Label>
+              <Label htmlFor="search">Search</Label>
               <div className="relative">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
                   id="search"
-                  placeholder="Nome, email ou ID..."
+                  placeholder="Name, email or ID..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-8"
@@ -271,17 +271,17 @@ export default function AdminUsersPage() {
               </div>
             </div>
             <div>
-              <Label>Função</Label>
+              <Label>Role</Label>
               <Select value={roleFilter} onValueChange={setRoleFilter}>
                 <SelectTrigger className="w-[150px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Todas</SelectItem>
+                  <SelectItem value="all">All</SelectItem>
                   <SelectItem value="admin">Admin</SelectItem>
-                  <SelectItem value="store">Loja</SelectItem>
-                  <SelectItem value="evaluator">Avaliador</SelectItem>
-                  <SelectItem value="user">Usuário</SelectItem>
+                  <SelectItem value="store">Store</SelectItem>
+                  <SelectItem value="evaluator">Evaluator</SelectItem>
+                  <SelectItem value="user">User</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -292,9 +292,9 @@ export default function AdminUsersPage() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Todos</SelectItem>
-                  <SelectItem value="active">Ativos</SelectItem>
-                  <SelectItem value="inactive">Inativos</SelectItem>
+                  <SelectItem value="all">All</SelectItem>
+                  <SelectItem value="active">Active</SelectItem>
+                  <SelectItem value="inactive">Inactive</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -307,7 +307,7 @@ export default function AdminUsersPage() {
         <CardHeader>
           <CardTitle>Usuários ({filteredUsers.length})</CardTitle>
           <CardDescription>
-            Lista de todos os usuários cadastrados na plataforma
+            List of all users registered on the platform
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -315,13 +315,13 @@ export default function AdminUsersPage() {
             <TableHeader>
               <TableRow>
                 <TableHead>ID</TableHead>
-                <TableHead>Nome</TableHead>
+                <TableHead>Name</TableHead>
                 <TableHead>Email</TableHead>
-                <TableHead>Função</TableHead>
+                <TableHead>Role</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Criado em</TableHead>
-                <TableHead>Último acesso</TableHead>
-                <TableHead className="text-right">Ações</TableHead>
+                <TableHead>Created at</TableHead>
+                <TableHead>Last access</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -346,7 +346,7 @@ export default function AdminUsersPage() {
                   <TableCell>
                     {user.last_login 
                       ? new Date(user.last_login).toLocaleDateString()
-                      : "Nunca"
+                      : "Never"
                     }
                   </TableCell>
                   <TableCell className="text-right">
@@ -357,7 +357,7 @@ export default function AdminUsersPage() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Ações</DropdownMenuLabel>
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem
                           onClick={() => {
                             setSelectedUser(user)
@@ -365,11 +365,11 @@ export default function AdminUsersPage() {
                           }}
                         >
                           <Eye className="mr-2 h-4 w-4" />
-                          Ver detalhes
+                          View details
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                           <Edit className="mr-2 h-4 w-4" />
-                          Editar
+                          Edit
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
@@ -378,12 +378,12 @@ export default function AdminUsersPage() {
                           {user.is_active ? (
                             <>
                               <Ban className="mr-2 h-4 w-4" />
-                              Desativar
+                              Deactivate
                             </>
                           ) : (
                             <>
                               <CheckCircle className="mr-2 h-4 w-4" />
-                              Ativar
+                              Activate
                             </>
                           )}
                         </DropdownMenuItem>
@@ -401,9 +401,9 @@ export default function AdminUsersPage() {
       <Dialog open={showUserDetails} onOpenChange={setShowUserDetails}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Detalhes do Usuário</DialogTitle>
+            <DialogTitle>User Details</DialogTitle>
             <DialogDescription>
-              Informações detalhadas sobre {selectedUser?.full_name}
+              Detailed information about {selectedUser?.full_name}
             </DialogDescription>
           </DialogHeader>
           {selectedUser && (
@@ -414,7 +414,7 @@ export default function AdminUsersPage() {
                   <p className="font-mono">{selectedUser.id}</p>
                 </div>
                 <div>
-                  <Label className="font-medium">Nome Completo</Label>
+                  <Label className="font-medium">Full Name</Label>
                   <p>{selectedUser.full_name}</p>
                 </div>
                 <div>
@@ -422,11 +422,11 @@ export default function AdminUsersPage() {
                   <p>{selectedUser.email}</p>
                 </div>
                 <div>
-                  <Label className="font-medium">Telefone</Label>
-                  <p>{selectedUser.phone || "Não informado"}</p>
+                  <Label className="font-medium">Phone</Label>
+                  <p>{selectedUser.phone || "Not provided"}</p>
                 </div>
                 <div>
-                  <Label className="font-medium">Função</Label>
+                  <Label className="font-medium">Role</Label>
                   <div className="mt-1">
                     {getRoleBadge(selectedUser.role)}
                   </div>
@@ -438,15 +438,15 @@ export default function AdminUsersPage() {
                   </div>
                 </div>
                 <div>
-                  <Label className="font-medium">Criado em</Label>
+                  <Label className="font-medium">Created at</Label>
                   <p>{new Date(selectedUser.created_at).toLocaleString()}</p>
                 </div>
                 <div>
-                  <Label className="font-medium">Último acesso</Label>
+                  <Label className="font-medium">Last access</Label>
                   <p>
                     {selectedUser.last_login 
                       ? new Date(selectedUser.last_login).toLocaleString()
-                      : "Nunca"
+                      : "Never"
                     }
                   </p>
                 </div>
