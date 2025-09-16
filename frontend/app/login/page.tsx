@@ -33,7 +33,11 @@ export default function LoginPage() {
     try {
       const result = await login(formData)
       if (result.success) {
-        router.push("/marketplace")
+        console.log("Login successful! Redirecting to marketplace...")
+        // Adicionar um pequeno atraso para garantir que o usuário seja carregado
+        setTimeout(() => {
+          router.push("/marketplace")
+        }, 500)
       } else {
         setError(formatErrorMessage(result.error, "Login error"))
       }

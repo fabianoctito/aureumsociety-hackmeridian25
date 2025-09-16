@@ -36,27 +36,27 @@ import Link from "next/link"
 const transactionTypeConfig = {
   'deposit': {
     icon: ArrowUpCircle,
-    label: 'Depósito',
+    label: 'Deposit',
     className: 'text-green-600 bg-green-50 border-green-200'
   },
   'withdrawal': {
     icon: ArrowDownCircle,
-    label: 'Saque',
+    label: 'Withdrawal',
     className: 'text-red-600 bg-red-50 border-red-200'
   },
   'purchase': {
     icon: DollarSign,
-    label: 'Compra',
+    label: 'Purchase',
     className: 'text-blue-600 bg-blue-50 border-blue-200'
   },
   'sale': {
     icon: TrendingUp,
-    label: 'Venda',
+    label: 'Sale',
     className: 'text-green-600 bg-green-50 border-green-200'
   },
   'payment': {
     icon: DollarSign,
-    label: 'Pagamento',
+    label: 'Payment',
     className: 'text-orange-600 bg-orange-50 border-orange-200'
   }
 }
@@ -64,22 +64,22 @@ const transactionTypeConfig = {
 const statusConfig = {
   'pending': {
     icon: Clock,
-    label: 'Pendente',
+    label: 'Pending',
     className: 'bg-yellow-100 text-yellow-800 border-yellow-200'
   },
   'completed': {
     icon: Check,
-    label: 'Concluído',
+    label: 'Completed',
     className: 'bg-green-100 text-green-800 border-green-200'
   },
   'failed': {
     icon: X,
-    label: 'Falhou',
+    label: 'Failed',
     className: 'bg-red-100 text-red-800 border-red-200'
   },
   'cancelled': {
     icon: X,
-    label: 'Cancelado',
+    label: 'Cancelled',
     className: 'bg-gray-100 text-gray-800 border-gray-200'
   }
 }
@@ -145,13 +145,13 @@ export default function BalancePage() {
               </div>
             </div>
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold">Acesso Restrito</h1>
+              <h1 className="text-3xl font-bold">Restricted Access</h1>
               <p className="text-muted-foreground max-w-md mx-auto">
-                Você precisa estar logado para acessar seu saldo e transações.
+                You must be logged in to access your balance and transactions.
               </p>
             </div>
             <Link href="/login">
-              <Button size="lg">Fazer Login</Button>
+              <Button size="lg">Login</Button>
             </Link>
           </div>
         </div>
@@ -194,12 +194,12 @@ export default function BalancePage() {
     const amount = parseFloat(depositAmount)
     if (amount > 0) {
       try {
-        await addFunds(amount, 'deposit', 'Depósito via plataforma')
+        await addFunds(amount, 'deposit', 'Deposit via platform')
         setDepositAmount("")
-        // Adicionar toast de sucesso
+        // Add success toast
       } catch (error) {
         console.error("Error adding funds:", error)
-        // Adicionar toast de erro
+        // Add error toast
       }
     }
   }
@@ -208,25 +208,25 @@ export default function BalancePage() {
     const amount = parseFloat(withdrawalAmount)
     if (amount > 0 && amount <= (balance?.available_balance || 0)) {
       try {
-        await withdrawFunds(amount, 'withdrawal', 'Saque via plataforma')
+        await withdrawFunds(amount, 'withdrawal', 'Withdrawal via platform')
         setWithdrawalAmount("")
-        // Adicionar toast de sucesso
+        // Add success toast
       } catch (error) {
         console.error("Error withdrawing funds:", error)
-        // Adicionar toast de erro
+        // Add error toast
       }
     }
   }
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('pt-BR', {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'BRL'
+      currency: 'USD'
     }).format(amount)
   }
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('pt-BR', {
+    return new Date(dateString).toLocaleDateString('en-US', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
@@ -242,7 +242,7 @@ export default function BalancePage() {
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
-              Erro ao carregar dados financeiros: {transactionsError}
+              Error loading financial data: {transactionsError}
             </AlertDescription>
           </Alert>
         </div>
@@ -259,12 +259,12 @@ export default function BalancePage() {
           {/* Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <h1 className="text-3xl font-bold">Meu Saldo</h1>
-              <p className="text-muted-foreground">Gerencie suas finanças na plataforma</p>
+              <h1 className="text-3xl font-bold">My Balance</h1>
+              <p className="text-muted-foreground">Manage your finances on the platform</p>
             </div>
             <Button variant="outline" size="sm">
               <Download className="h-4 w-4 mr-2" />
-              Exportar Extrato
+              Export Statement
             </Button>
           </div>
 
@@ -273,7 +273,7 @@ export default function BalancePage() {
             {/* Available Balance */}
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Saldo Disponível</CardTitle>
+                <CardTitle className="text-sm font-medium">Available Balance</CardTitle>
                 <Wallet className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -288,7 +288,7 @@ export default function BalancePage() {
                       {formatCurrency(balance?.available_balance || 0)}
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      Bloqueado: {formatCurrency(balance?.pending_balance || 0)}
+                      Locked: {formatCurrency(balance?.pending_balance || 0)}
                     </p>
                   </div>
                 )}
@@ -298,7 +298,7 @@ export default function BalancePage() {
             {/* Portfolio Value */}
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Valor do Portfólio</CardTitle>
+                <CardTitle className="text-sm font-medium">Portfolio Value</CardTitle>
                 <TrendingUp className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -319,7 +319,7 @@ export default function BalancePage() {
                         <TrendingDown className="h-3 w-3 mr-1" />
                       )}
                       {formatCurrency(Math.abs(totalProfit))} 
-                      {totalProfit >= 0 ? ' lucro' : ' prejuízo'}
+                      {totalProfit >= 0 ? ' profit' : ' loss'}
                     </p>
                   </div>
                 )}
@@ -329,7 +329,7 @@ export default function BalancePage() {
             {/* Monthly Change */}
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Movimentação Mensal</CardTitle>
+                <CardTitle className="text-sm font-medium">Monthly Change</CardTitle>
                 <DollarSign className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -344,7 +344,7 @@ export default function BalancePage() {
                       {monthlyChange >= 0 ? '+' : ''}{formatCurrency(monthlyChange)}
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      {monthlyTransactions.length} transações este mês
+                      {monthlyTransactions.length} transactions this month
                     </p>
                   </div>
                 )}
@@ -358,20 +358,20 @@ export default function BalancePage() {
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <ArrowUpCircle className="h-5 w-5 mr-2 text-green-600" />
-                  Adicionar Fundos
+                  Add Funds
                 </CardTitle>
                 <CardDescription>
-                  Deposite dinheiro na sua conta
+                  Deposit money into your account
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="deposit-amount">Valor (R$)</Label>
+                  <Label htmlFor="deposit-amount">Amount (USD)</Label>
                   <Input
                     id="deposit-amount"
                     type="number"
                     step="0.01"
-                    placeholder="0,00"
+                    placeholder="0.00"
                     value={depositAmount}
                     onChange={(e) => setDepositAmount(e.target.value)}
                   />
@@ -381,7 +381,7 @@ export default function BalancePage() {
                   className="w-full"
                   disabled={!depositAmount || parseFloat(depositAmount) <= 0}
                 >
-                  Depositar
+                  Deposit
                 </Button>
               </CardContent>
             </Card>
@@ -390,25 +390,25 @@ export default function BalancePage() {
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <ArrowDownCircle className="h-5 w-5 mr-2 text-red-600" />
-                  Sacar Fundos
+                  Withdraw Funds
                 </CardTitle>
                 <CardDescription>
-                  Retire dinheiro da sua conta
+                  Withdraw money from your account
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="withdrawal-amount">Valor (R$)</Label>
+                  <Label htmlFor="withdrawal-amount">Amount (USD)</Label>
                   <Input
                     id="withdrawal-amount"
                     type="number"
                     step="0.01"
-                    placeholder="0,00"
+                    placeholder="0.00"
                     value={withdrawalAmount}
                     onChange={(e) => setWithdrawalAmount(e.target.value)}
                   />
                   <p className="text-xs text-muted-foreground">
-                    Disponível: {formatCurrency(balance?.available_balance || 0)}
+                    Available: {formatCurrency(balance?.available_balance || 0)}
                   </p>
                 </div>
                 <Button 
@@ -421,7 +421,7 @@ export default function BalancePage() {
                     parseFloat(withdrawalAmount) > (balance?.available_balance || 0)
                   }
                 >
-                  Sacar
+                  Withdraw
                 </Button>
               </CardContent>
             </Card>
@@ -432,36 +432,36 @@ export default function BalancePage() {
             <CardHeader>
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                  <CardTitle>Histórico de Transações</CardTitle>
+                  <CardTitle>Transaction History</CardTitle>
                   <CardDescription>
-                    Todas as suas movimentações financeiras
+                    All your financial movements
                   </CardDescription>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <Select value={filterType} onValueChange={setFilterType}>
                     <SelectTrigger className="w-48">
-                      <SelectValue placeholder="Filtrar por tipo" />
+                      <SelectValue placeholder="Filter by type" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">Todos os tipos</SelectItem>
-                      <SelectItem value="deposit">Depósitos</SelectItem>
-                      <SelectItem value="withdrawal">Saques</SelectItem>
-                      <SelectItem value="purchase">Compras</SelectItem>
-                      <SelectItem value="sale">Vendas</SelectItem>
-                      <SelectItem value="payment">Pagamentos</SelectItem>
+                      <SelectItem value="all">All types</SelectItem>
+                      <SelectItem value="deposit">Deposits</SelectItem>
+                      <SelectItem value="withdrawal">Withdrawals</SelectItem>
+                      <SelectItem value="purchase">Purchases</SelectItem>
+                      <SelectItem value="sale">Sales</SelectItem>
+                      <SelectItem value="payment">Payments</SelectItem>
                     </SelectContent>
                   </Select>
 
                   <Select value={filterStatus} onValueChange={setFilterStatus}>
                     <SelectTrigger className="w-48">
-                      <SelectValue placeholder="Filtrar por status" />
+                      <SelectValue placeholder="Filter by status" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">Todos os status</SelectItem>
-                      <SelectItem value="pending">Pendente</SelectItem>
-                      <SelectItem value="completed">Concluído</SelectItem>
-                      <SelectItem value="failed">Falhou</SelectItem>
-                      <SelectItem value="cancelled">Cancelado</SelectItem>
+                      <SelectItem value="all">All statuses</SelectItem>
+                      <SelectItem value="pending">Pending</SelectItem>
+                      <SelectItem value="completed">Completed</SelectItem>
+                      <SelectItem value="failed">Failed</SelectItem>
+                      <SelectItem value="cancelled">Cancelled</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -483,7 +483,7 @@ export default function BalancePage() {
                 </div>
               ) : filteredTransactions.length === 0 ? (
                 <div className="text-center py-8">
-                  <p className="text-muted-foreground">Nenhuma transação encontrada</p>
+                  <p className="text-muted-foreground">No transactions found</p>
                 </div>
               ) : (
                 <ScrollArea className="h-[400px]">
@@ -509,7 +509,7 @@ export default function BalancePage() {
                                 </Badge>
                               </div>
                               <p className="text-sm text-muted-foreground">
-                                {transaction.description || 'Sem descrição'}
+                                {transaction.description || 'No description'}
                               </p>
                               <p className="text-xs text-muted-foreground">
                                 {formatDate(transaction.created_at)}
@@ -527,7 +527,7 @@ export default function BalancePage() {
                             </p>
                             {transaction.fee && transaction.fee > 0 && (
                               <p className="text-xs text-muted-foreground">
-                                Taxa: {formatCurrency(transaction.fee)}
+                                Fee: {formatCurrency(transaction.fee)}
                               </p>
                             )}
                           </div>

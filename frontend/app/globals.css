@@ -388,3 +388,25 @@ div.checkout-card.shipping-info-special {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
   outline: none !important;
 }
+
+/* DIALOG FIXES FOR SOLID BACKGROUND */
+.DialogContent,
+[data-radix-dialog-content],
+[role="dialog"] > div {
+  background-color: white !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.dark .DialogContent,
+.dark [data-radix-dialog-content],
+.dark [role="dialog"] > div {
+  background-color: hsl(240 10% 3.9%) !important;
+}
+
+/* Fix dialog overlay to be more opaque */
+.DialogOverlay,
+[data-radix-dialog-overlay] {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: none !important;
+}

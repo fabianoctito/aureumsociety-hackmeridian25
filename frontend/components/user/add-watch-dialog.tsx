@@ -46,10 +46,10 @@ export function AddWatchDialog({ onAddWatch, trigger }: AddWatchDialogProps) {
     "IWC",
     "Jaeger-LeCoultre",
     "Vacheron Constantin",
-    "Outros",
+    "Other",
   ]
 
-  const conditions = ["Novo", "Excelente", "Muito Bom", "Bom", "Regular", "Precisa Reparo"]
+  const conditions = ["New", "Excellent", "Very Good", "Good", "Fair", "Needs Repair"]
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -75,23 +75,23 @@ export function AddWatchDialog({ onAddWatch, trigger }: AddWatchDialogProps) {
         {trigger || (
           <Button>
             <Plus className="h-4 w-4 mr-2" />
-            Adicionar Relógio
+            Add Watch
           </Button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Adicionar Novo Relógio</DialogTitle>
-          <DialogDescription>Adicione um novo relógio à sua coleção pessoal</DialogDescription>
+          <DialogTitle>Add New Watch</DialogTitle>
+          <DialogDescription>Add a new watch to your personal collection</DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="brand">Marca</Label>
+                <Label htmlFor="brand">Brand</Label>
                 <Select value={formData.brand} onValueChange={(value) => handleInputChange("brand", value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Selecione a marca" />
+                    <SelectValue placeholder="Select brand" />
                   </SelectTrigger>
                   <SelectContent>
                     {brands.map((brand) => (
@@ -103,12 +103,12 @@ export function AddWatchDialog({ onAddWatch, trigger }: AddWatchDialogProps) {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="model">Modelo</Label>
+                <Label htmlFor="model">Model</Label>
                 <Input
                   id="model"
                   value={formData.model}
                   onChange={(e) => handleInputChange("model", e.target.value)}
-                  placeholder="Ex: Submariner Date"
+                  placeholder="e.g. Submariner Date"
                   required
                 />
               </div>
@@ -116,7 +116,7 @@ export function AddWatchDialog({ onAddWatch, trigger }: AddWatchDialogProps) {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="purchasePrice">Preço de Compra ($)</Label>
+                <Label htmlFor="purchasePrice">Purchase Price ($)</Label>
                 <Input
                   id="purchasePrice"
                   type="number"
@@ -127,7 +127,7 @@ export function AddWatchDialog({ onAddWatch, trigger }: AddWatchDialogProps) {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="purchaseDate">Data de Compra</Label>
+                <Label htmlFor="purchaseDate">Purchase Date</Label>
                 <Input
                   id="purchaseDate"
                   type="date"
@@ -139,10 +139,10 @@ export function AddWatchDialog({ onAddWatch, trigger }: AddWatchDialogProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="condition">Condição</Label>
+              <Label htmlFor="condition">Condition</Label>
               <Select value={formData.condition} onValueChange={(value) => handleInputChange("condition", value)}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecione a condição" />
+                  <SelectValue placeholder="Select condition" />
                 </SelectTrigger>
                 <SelectContent>
                   {conditions.map((condition) => (
@@ -155,31 +155,31 @@ export function AddWatchDialog({ onAddWatch, trigger }: AddWatchDialogProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="notes">Observações</Label>
+              <Label htmlFor="notes">Notes</Label>
               <Textarea
                 id="notes"
                 value={formData.notes}
                 onChange={(e) => handleInputChange("notes", e.target.value)}
-                placeholder="Informações adicionais sobre o relógio..."
+                placeholder="Additional information about the watch..."
                 rows={3}
               />
             </div>
 
             <div className="space-y-2">
-              <Label>Fotos</Label>
+              <Label>Photos</Label>
               <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center">
                 <Upload className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
-                <p className="text-sm text-muted-foreground">Clique para adicionar fotos ou arraste e solte aqui</p>
-                <p className="text-xs text-muted-foreground mt-1">PNG, JPG até 10MB</p>
+                <p className="text-sm text-muted-foreground">Click to add photos or drag and drop here</p>
+                <p className="text-xs text-muted-foreground mt-1">PNG, JPG up to 10MB</p>
               </div>
             </div>
-          </div>
+         </div>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>
-              Cancelar
+              Cancel
             </Button>
-            <Button type="submit">Adicionar Relógio</Button>
-          </DialogFooter>
+            <Button type="submit">Add Watch</Button>
+          </DialogFooter> 
         </form>
       </DialogContent>
     </Dialog>

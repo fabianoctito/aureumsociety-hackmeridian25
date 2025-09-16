@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2, CheckCircle, XCircle } from "lucide-react"
-import { apiClient } from "@/lib/api-client"
+import { getApiClient } from "@/lib/api-client"
 
 interface TestResult {
   name: string
@@ -51,7 +51,7 @@ export default function ApiTestPage() {
 
     // Test 2: Get Watches
     try {
-      const result = await apiClient.getWatches()
+      const result = await getApiClient().getWatches()
       if (result.error) {
         updateTest(1, 'error', result.error)
       } else {
@@ -61,7 +61,7 @@ export default function ApiTestPage() {
       updateTest(1, 'error', `API call failed: ${error}`)
     }
 
-    // Test 3: Test Register
+    // Test 3: 
     try {
       const testUser = {
         email: `test_${Date.now()}@example.com`,
@@ -70,7 +70,7 @@ export default function ApiTestPage() {
         role: 'user' as const
       }
       
-      const result = await apiClient.register(testUser)
+      const result = await getApiClient().register(testUser)
       if (result.error) {
         updateTest(2, 'error', result.error)
       } else {
@@ -82,7 +82,7 @@ export default function ApiTestPage() {
 
     // Test 4: Test Login with invalid credentials (just to test endpoint)
     try {
-      const result = await apiClient.login('test@example.com', 'wrongpassword')
+      const result = await getApiClient().login('test@example.com', 'wrongpassword')
       if (result.error) {
         updateTest(3, 'success', 'Login endpoint responding (with expected error)', result.error)
       } else {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useAuth } from "@/contexts/auth-context-api"
 import { Footer } from "@/components/layout/footer"
 import { UserWatchCard } from "@/components/user/user-watch-card"
@@ -19,6 +19,28 @@ export default function MyWatchesPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [filterStatus, setFilterStatus] = useState<string>("all")
+  
+  // Usar useEffect para logar o objeto do usuário quando a página carregar
+  useEffect(() => {
+    console.log("User object in MyWatchesPage:", user)
+    console.log("User role:", user?.role)
+    console.log("User type:", user?.type)
+  }, [user])
+  
+  // Função utilitária para verificar se o usuário é loja ou admin
+  const isStoreOrAdmin = (user: any) => {
+    if (!user) return false;
+    
+    // Log completo do usuário para depuração
+    console.log("User object in isStoreOrAdmin:", JSON.stringify(user, null, 2))
+    
+    const isAdmin = user.role === 'admin'
+    const isStore = user.role === 'store'
+    
+    console.log("Is admin:", isAdmin, "Is store:", isStore)
+    
+    return isAdmin || isStore
+  }
 
   // Mock data
   const watchesLoading = false;
@@ -222,12 +244,15 @@ export default function MyWatchesPage() {
               <h1 className="text-3xl font-bold">My Collection</h1>
               <p className="text-muted-foreground">Manage your luxury watches</p>
             </div>
-            <AddWatchDialog 
-              onAddWatch={async (watchData) => {
-                // Implement add watch logic
-                
-              }}
-            />
+            {/* Mostra botão de adicionar apenas para loja ou admin */}
+            {isStoreOrAdmin(user) && (
+              <AddWatchDialog 
+                onAddWatch={async (watchData) => {
+                  // Implement add watch logic
+                  
+                }}
+              />
+            )}
           </div>
 
           {/* Stats */}
@@ -382,7 +407,7 @@ export default function MyWatchesPage() {
                   : "Start by adding your first watch to the collection"
                 }
               </p>
-              {(!searchTerm && filterStatus === "all") && (
+              {(!searchTerm && filterStatus === "all" && isStoreOrAdmin(user)) && (
                 <AddWatchDialog 
                   onAddWatch={async (watchData) => {
                     
@@ -394,6 +419,11 @@ export default function MyWatchesPage() {
                     </Button>
                   }
                 />
+              )}
+              {(!searchTerm && filterStatus === "all" && user && !isStoreOrAdmin(user)) && (
+                <div className="text-muted-foreground">
+                  Contact a store or administrator to add watches to your collection
+                </div>
               )}
             </div>
           )}

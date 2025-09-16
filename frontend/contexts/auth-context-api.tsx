@@ -40,6 +40,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await getApiClient().getProfile()
       console.log('Profile response:', response)
       if (response.data) {
+        console.log('User data from API:', JSON.stringify(response.data, null, 2))
         setUser(response.data)
       } else {
         // Token invalid, clear it

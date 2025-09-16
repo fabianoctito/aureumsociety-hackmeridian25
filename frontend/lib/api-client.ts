@@ -134,7 +134,10 @@ class ApiClient {
   }
 
   async getProfile() {
-    return this.request<User>('/auth/profile')
+    console.log("Getting user profile with token:", this.token ? "Token exists" : "No token")
+    const response = await this.request<User>('/auth/profile')
+    console.log("API getProfile response:", response)
+    return response
   }
 
   // Watches endpoints

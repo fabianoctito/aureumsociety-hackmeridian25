@@ -82,7 +82,7 @@ export default function MarketplacePage() {
             // Ensure error is a string
             const errorMessage = typeof response.error === 'string' 
               ? response.error 
-              : 'Erro na API: ' + String(response.error || 'Erro desconhecido')
+              : 'API Error: ' + String(response.error || 'Unknown error')
             setError(errorMessage)
           }
         }
@@ -95,7 +95,7 @@ export default function MarketplacePage() {
           setError(null)
         } catch (mockError) {
           console.error('Error loading mock data:', mockError)
-          setError('Erro ao carregar relógios')
+          setError('Error loading watches')
         }
       } finally {
         setLoading(false)
@@ -128,18 +128,18 @@ export default function MarketplacePage() {
     try {
       const result = {
         id: watch.id?.toString() || String(watch.id) || Math.random().toString(),
-        name: watch.name || `${watch.brand || ''} ${watch.model || ''}`.trim() || 'Relógio',
+        name: watch.name || `${watch.brand || ''} ${watch.model || ''}`.trim() || 'Watch',
         brand: watch.brand || 'Brand not informed',
         price: typeof watch.price === 'number' ? watch.price : 
                typeof watch.current_value_brl === 'number' ? watch.current_value_brl : 0,
         cryptoPrice: watch.crypto_price || watch.cryptoPrice || '0.001 BTC',
         image: (watch.images && watch.images[0]) || watch.image_url || watch.image || '/placeholder.svg',
-        isNew: watch.condition === 'novo' || watch.isNew || false,
+        isNew: watch.condition === 'new' || watch.isNew || false,
         isLimited: watch.isLimited || false,
-        category: watch.category || watch.condition || 'Relógio',
-        condition: watch.condition || 'usado',
+        category: watch.category || watch.condition || 'Watch',
+        condition: watch.condition || 'used',
         isAuthenticated: true,
-        seller: watch.store_name || 'Loja Premium',
+        seller: watch.store_name || 'Premium Store',
         sellerType: 'store' as const
       }
       console.log('Formatted watch data:', result.id, result.name)
@@ -166,13 +166,13 @@ export default function MarketplacePage() {
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-destructive mb-4">Erro ao carregar marketplace</h1>
+            <h1 className="text-2xl font-bold text-destructive mb-4">Error loading marketplace</h1>
             <p className="text-muted-foreground">{error}</p>
             <Button 
               onClick={() => window.location.reload()} 
               className="mt-4"
             >
-              Tentar novamente
+              Try again
             </Button>
           </div>
         </div>
@@ -197,7 +197,7 @@ export default function MarketplacePage() {
                 className="flex items-center gap-2"
               >
                 <SlidersHorizontal className="h-4 w-4" />
-                {showFilters ? 'Ocultar Filtros' : 'Mostrar Filtros'}
+                {showFilters ? 'Hide Filters' : 'Show Filters'}
               </Button>
 
               <Select value={sortBy} onValueChange={setSortBy}>
@@ -205,8 +205,8 @@ export default function MarketplacePage() {
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="newest">Mais recentes</SelectItem>
-                  <SelectItem value="popular">Mais populares</SelectItem>
+                  <SelectItem value="newest">Most recent</SelectItem>
+                  <SelectItem value="popular">Most popular</SelectItem>
                   <SelectItem value="price-low">Lower price</SelectItem>
                   <SelectItem value="price-high">Higher price</SelectItem>
                   <SelectItem value="brand">Brand A-Z</SelectItem>
@@ -217,10 +217,10 @@ export default function MarketplacePage() {
                 {loading ? (
                   <div className="flex items-center gap-2">
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    Carregando...
+                    Loading...
                   </div>
                 ) : (
-                  `${filteredAndSortedWatches.length} relógios encontrados`
+                  `${filteredAndSortedWatches.length} watches found`
                 )}
               </div>
             </div>
@@ -275,9 +275,9 @@ export default function MarketplacePage() {
                 </div>
               ) : filteredAndSortedWatches.length === 0 ? (
                 <div className="text-center py-12">
-                  <h3 className="text-lg font-semibold mb-2">Nenhum relógio encontrado</h3>
+                  <h3 className="text-lg font-semibold mb-2">No watches found</h3>
                   <p className="text-muted-foreground mb-4">
-                    Tente ajustar os filtros ou remover alguns critérios de busca
+                    Try adjusting the filters or removing some search criteria
                   </p>
                   <Button
                     variant="outline"
@@ -289,7 +289,7 @@ export default function MarketplacePage() {
                       search: ""
                     })}
                   >
-                    Limpar filtros
+                    Clear filters
                   </Button>
                 </div>
               ) : (

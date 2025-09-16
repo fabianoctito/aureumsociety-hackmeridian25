@@ -50,19 +50,19 @@ export function UserWatchCard({
       case "owned":
         return (
           <Badge variant="secondary" className="bg-green-100 text-green-800">
-            Possuído
+            Owned
           </Badge>
         )
       case "for_sale":
         return (
           <Badge variant="secondary" className="bg-blue-100 text-blue-800">
-            À Venda
+            For Sale
           </Badge>
         )
       case "sold":
         return (
           <Badge variant="secondary" className="bg-gray-100 text-gray-800">
-            Vendido
+            Sold
           </Badge>
         )
       default:
@@ -88,25 +88,25 @@ export function UserWatchCard({
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={() => onView?.(id)}>
                 <Eye className="h-4 w-4 mr-2" />
-                Ver Detalhes
+                View Details
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => onEdit?.(id)}>
                 <Edit className="h-4 w-4 mr-2" />
-                Editar
+                Edit
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => onShare?.(id)}>
                 <Share2 className="h-4 w-4 mr-2" />
-                Compartilhar
+                Share
               </DropdownMenuItem>
               {status === "owned" && (
                 <DropdownMenuItem onClick={() => onSell?.(id)}>
                   <DollarSign className="h-4 w-4 mr-2" />
-                  Colocar à Venda
+                  Put Up for Sale
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem onClick={() => onDelete?.(id)} className="text-destructive">
                 <Trash2 className="h-4 w-4 mr-2" />
-                Remover
+                Remove
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -132,21 +132,21 @@ export function UserWatchCard({
           <p className="text-sm text-muted-foreground font-medium">{brand}</p>
           <h3 className="font-semibold text-foreground line-clamp-2 text-balance">{name}</h3>
           <p className="text-xs text-muted-foreground mt-1">
-            Adquirido em {new Date(purchaseDate).toLocaleDateString("pt-BR")}
+            Purchased on {new Date(purchaseDate).toLocaleDateString("en-US")}
           </p>
         </div>
 
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">Preço de Compra:</span>
+            <span className="text-muted-foreground">Purchase Price:</span>
             <span className="font-medium">${purchasePrice.toLocaleString()}</span>
           </div>
           <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">Valor Atual:</span>
+            <span className="text-muted-foreground">Current Value:</span>
             <span className="font-medium">${currentValue.toLocaleString()}</span>
           </div>
           <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">Variação:</span>
+            <span className="text-muted-foreground">Change:</span>
             <span className={`font-medium ${isProfit ? "text-green-600" : "text-red-600"}`}>
               {isProfit ? "+" : ""}${valueChange.toLocaleString()} ({isProfit ? "+" : ""}
               {valueChangePercent}%)
@@ -155,7 +155,7 @@ export function UserWatchCard({
         </div>
 
         <Button variant="outline" className="w-full bg-transparent" onClick={() => onView?.(id)}>
-          Ver Detalhes
+          View Details
         </Button>
       </CardContent>
     </Card>
